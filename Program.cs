@@ -1,4 +1,10 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using printSmart.Data;
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<ClienteContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("ClienteContext") ?? throw new InvalidOperationException("Connection string 'ClienteContext' not found.")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
