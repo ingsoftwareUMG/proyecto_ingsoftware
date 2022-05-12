@@ -1,5 +1,4 @@
-﻿#nullable disable
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,85 +10,89 @@ using printSmart.Models;
 
 namespace printSmart
 {
-    public class clientesController : Controller
+    public class usersController : Controller
     {
-        private readonly ClienteContext _context;
+        private readonly usersContext _context;
 
-        public clientesController(ClienteContext context)
+        public usersController(usersContext context)
         {
             _context = context;
         }
 
-        // GET: clientes
+        // GET: users
         public async Task<IActionResult> Index() 
         {
-            return View(await _context.cliente.ToListAsync());
+            //return _context.Movie != null ? 
+            // View(await _context.Movie.ToListAsync()) :
+            //Problem("Entity set 'usersContext.users'  is null.");
+            return View(await _context.users.ToListAsync());
+
         }
 
-        // GET: clientes/Details/5
+        // GET: users/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
+            if (id == null || _context.users == null)
             {
                 return NotFound();
             }
 
-            var cliente = await _context.cliente
+            var users = await _context.users
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (cliente == null)
+            if (users == null)
             {
                 return NotFound();
             }
 
-            return View(cliente);
+            return View(users);
         }
 
-        // GET: clientes/Create
+        // GET: users/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: clientes/Create
+        // POST: users/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,nombre,direccion,telefono,nit")] cliente cliente)
+        public async Task<IActionResult> Create([Bind("Id,Nombre,Apellido,UserName,Password,Telefono,email")] users users)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(cliente);
+                _context.Add(users);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(cliente);
+            return View(users);
         }
 
-        // GET: clientes/Edit/5
+        // GET: users/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
+            if (id == null || _context.users == null)
             {
                 return NotFound();
             }
 
-            var cliente = await _context.cliente.FindAsync(id);
-            if (cliente == null)
+            var users = await _context.users.FindAsync(id);
+            if (users == null)
             {
                 return NotFound();
             }
-            return View(cliente);
+            return View(users);
         }
 
-        // POST: clientes/Edit/5
+        // POST: users/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,nombre,direccion,telefono,nit")] cliente cliente)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Apellido,UserName,Password,Telefono,email")] users users)
         {
-            if (id != cliente.Id)
+            if (id != users.Id)
             {
                 return NotFound();
             }
@@ -98,12 +101,12 @@ namespace printSmart
             {
                 try
                 {
-                    _context.Update(cliente);
+                    _context.Update(users);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!clienteExists(cliente.Id))
+                    if (!usersExists(users.Id))
                     {
                         return NotFound();
                     }
@@ -114,41 +117,49 @@ namespace printSmart
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(cliente);
+            return View(users);
         }
 
-        // GET: clientes/Delete/5
+        // GET: users/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
+            if (id == null || _context.users == null)
             {
                 return NotFound();
             }
 
-            var cliente = await _context.cliente
+            var users = await _context.users
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (cliente == null)
+            if (users == null)
             {
                 return NotFound();
             }
 
-            return View(cliente);
+            return View(users);
         }
 
-        // POST: clientes/Delete/5
+        // POST: users/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var cliente = await _context.cliente.FindAsync(id);
-            _context.cliente.Remove(cliente);
+            if (_context.users == null)
+            {
+                return Problem("Entity set 'usersContext.users'  is null.");
+            }
+            var users = await _context.users.FindAsync(id);
+            if (users != null)
+            {
+                _context.users.Remove(users);
+            }
+            
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool clienteExists(int id)
+        private bool usersExists(int id)
         {
-            return _context.cliente.Any(e => e.Id == id);
+          return (_context.users?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

@@ -3,6 +3,9 @@ using Microsoft.Extensions.DependencyInjection;
 using printSmart.Data;
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddDbContext<usersContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("usersContext") ?? throw new InvalidOperationException("Connection string 'usersContext' not found.")));
+
 builder.Services.AddDbContext<ClienteContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("ClienteContext") ?? throw new InvalidOperationException("Connection string 'ClienteContext' not found.")));
 
