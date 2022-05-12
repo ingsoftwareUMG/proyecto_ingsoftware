@@ -1,13 +1,25 @@
 ﻿@model IEnumerable<printSmart.Models.cliente>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Clientes";
 }
 
-<h1>Index</h1>
+<h1>Listado de Clientes</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <br>
+
+    <h3>Opciones</h3>
+
+    <hr>
+
+    <button type="button" class="btn btn-link">
+    
+    <a asp-action="Create">Crear Cliente Nuevo</a>
+
+    </button>
+
+    
 </p>
 <table class="table">
     <thead>
@@ -43,11 +55,14 @@
                 @Html.DisplayFor(modelItem => item.nit)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Detalles</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Borrar</a>
             </td>
         </tr>
 }
     </tbody>
 </table>
+
+
+   
