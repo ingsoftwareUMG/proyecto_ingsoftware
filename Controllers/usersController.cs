@@ -12,7 +12,7 @@ namespace printSmart
 {
     public class usersController : Controller
     {
-        private readonly usersContext _context;
+        public readonly usersContext _context;
 
         public usersController(usersContext context)
         {
@@ -23,7 +23,7 @@ namespace printSmart
         public async Task<IActionResult> Index() 
         {
             //return _context.Movie != null ? 
-            // View(await _context.Movie.ToListAsync()) :
+            // View(await _context.Movie.ToListAsync()) : 
             //Problem("Entity set 'usersContext.users'  is null.");
             return View(await _context.users.ToListAsync());
 
@@ -46,6 +46,9 @@ namespace printSmart
 
             return View(users);
         }
+
+        // POST users/Valid/5
+
 
         // GET: users/Create
         public IActionResult Create()

@@ -6,15 +6,10 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using printSmart.Models;
 
+
 namespace printSmart.Data
 {
-    public class usersContext : DbContext
+    public class DataContext : DbContext 
     {
-        public usersContext (DbContextOptions<usersContext> options)
-            : base(options)
-        {
-        }
-
-        public DbSet<printSmart.Models.users>? users { get; set; }
     }
 }
