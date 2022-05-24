@@ -1,0 +1,130 @@
+﻿@model IEnumerable<printSmart.Models.TipoServicio>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="col-10 mt-2">
+        <div class="row">
+                <div class="col">
+                <h2>Listado de Tipo de servicios </h2>
+
+                </div>
+                <div class="col">
+                <a class="btn btn-success" asp-action="Create">Nuevo Tipo </a>
+                </div>
+                <p>
+             </p>
+            </div>
+            <div class="container">
+               <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                                Tipos de Servicios
+                            </div>
+                            <div class="card-body">
+                                <table id="datatablesSimple">
+                                    <thead>
+                                        <tr>
+                                            <th>Nombre</th>
+                                            <th>Descripcion</th>
+                                            <th>Costo</th>
+                                            <th>Estado</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Nombre</th>
+                                            <th>Descripcion</th>
+                                            <th>Costo</th>
+                                            <th>Estado</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        @foreach (var item in Model) {
+                                            <tr>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Nombre)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Descripcion)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Costo)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Estado)
+                                                </td>
+                                                <td>
+                                                    <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.IdTipoServ">Edit</a> |
+                                                    <a class="btn btn-info" asp-action="Details" asp-route-id="@item.IdTipoServ">Details</a> |
+                                                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.IdTipoServ">Delete</a>
+                                                </td>
+                                        </tr>
+                                        }
+                                    </tbody>
+                                 </table>
+                            </div>
+                        </div>
+            
+                </div>
+        </div>
+</div>
+
+
+
+
+<!--
+
+<div class="container-fluid">
+
+<h1>Tipo de servicios </h1>
+
+<p>
+    <a asp-action="Create">Crear Nuevo Tipo </a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                Html.DisplayNameFor(model => model.Descripcion)
+            </th>
+            <th>
+                Html.DisplayNameFor(model => model.Costo)
+            </th>
+            <th>
+                Html.DisplayNameFor(model => model.Estado)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+foreach (var item in Model) {
+        <tr>
+            <td>
+                Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                Html.DisplayFor(modelItem => item.Descripcion)
+            </td>
+            <td>
+                Html.DisplayFor(modelItem => item.Costo)
+            </td>
+            <td>
+                Html.DisplayFor(modelItem => item.Estado)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="item.IdTipoServ">Edit</a> |
+                <a asp-action="Details" asp-route-id="item.IdTipoServ">Details</a> |
+                <a asp-action="Delete" asp-route-id="item.IdTipoServ">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+-->

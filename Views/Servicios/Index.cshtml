@@ -1,0 +1,50 @@
+﻿@model IEnumerable<printSmart.Models.ServiciosDetalles>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="col-10 mt-2">
+        <div class="row">
+                <div class="col">
+                <h2>Listado de servicios</h2>
+
+                </div>
+                <div class="col">
+                    <a class="btn btn-success" asp-action="Create">Nuevo Servicio</a>
+                </div>
+                <p>
+             </p>
+            </div>
+            <div class="container">
+                <div class="row justify-content-sm-between top-50">
+                    @foreach (var item in Model)
+                    {
+                        <div class="card bg-primary text-white mb-4" style="width: 18rem;">
+                        <div class="card-header">Servicio: @Html.DisplayFor(modelItem => item.Nombre)</div> 
+                        <div class="card-body bg-primary">
+                            <p class="card-text">Descripcion: @Html.DisplayFor(modelItem => item.Descripcion)</p>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item bg-primary text-white">Cliente: @Html.DisplayFor(modelItem => item.Cliente)</li>
+                                <li class="list-group-item bg-primary text-white">Producto: @Html.DisplayFor(modelItem => item.Producto)</li>
+                                <li class="list-group-item bg-primary text-white">Fecha: @Html.DisplayFor(modelItem => item.Fecha)</li>
+                                <li class="list-group-item bg-primary">
+                                    <a class="btn bg-light" asp-action="Details" asp-route-id="@item.Id">✅</a>|
+                                    <a class="btn bg-light" asp-action="Edit" asp-route-id="@item.Id">⚙️</a> |
+                                    <a class="btn bg-light" asp-action="Delete" asp-route-id="@item.Id">❌</a>
+                                </li>
+                             </ul>
+                        </div>
+                        <div class="card-footer">Tipo Servicio: @Html.DisplayFor(modelItem => item.Tipo)</div>
+                    </div>  
+                        
+                    }
+                 
+                </div>
+            </div>
+            
+        </div>
+</div>
+    
