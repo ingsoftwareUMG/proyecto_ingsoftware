@@ -22,28 +22,136 @@ namespace printSmart.Controllers
         // GET: Pagoes
         public async Task<IActionResult> Index()
         {
-              return _context.Pago != null ? 
-                          View(await _context.Pago.ToListAsync()) :
-                          Problem("Entity set 'AplicationDbContext.Pago'  is null.");
+            using(var db = _context)
+            {
+                int limiteDatos = 10;
+                var pagos = await (from p in db.Pago
+                                   join s in db.Servicio
+                                   on p.IdServicio equals s.Id
+                                   join c in db.Cliente
+                                   on s.IdCliente equals c.IdCliente
+                                   orderby p.IdPago descending
+                                   select new PagoDetalle
+                                   {
+                                       IdPago = p.IdPago,
+                                       Servicio = s.Nombre,
+                                       Cliente = c.Nombre + c.Apellido,
+                                       Importe = p.Valor,
+                                       IdServicio=s.Id,
+
+                                   }).Take(limiteDatos).ToListAsync();
+
+                return View(pagos);
+            }   
         }
 
         // GET: Pagoes/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Pago == null)
+            Console.WriteLine(id);
+            using (var db = _context)
             {
-                return NotFound();
-            }
+                float valorSuministros = 0;
+                float valorRepuestos = 0;
+                var suministros = await (from ss in db.ServicioSuministro
+                                         join sm in db.Suministros
+                                         on ss.IdSuministro equals sm.IdSuministro
+                                         where ss.IdServicio == id
+                                         select new Suministros
+                                         {
+                                             Nombre = sm.Nombre,
+                                             Precio = sm.Precio,
+                                         }).ToListAsync();
 
-            var pago = await _context.Pago
-                .FirstOrDefaultAsync(m => m.IdPago == id);
-            if (pago == null)
+                var repuestos = await (from sr in db.ServicioRepuesto
+                                       join r in db.Repuesto
+                                       on sr.IdRepuesto equals r.IdRepuesto
+                                       where sr.IdServicio == id
+                                       select new Repuesto
+                                       {
+                                           Nombre = r.Nombre,
+                                           Precio = r.Precio,
+                                       }).ToListAsync();
+
+
+
+
+                if (suministros.Count != 0)
+                {
+                    foreach (var vs in suministros)
+                    {
+                        valorSuministros += (float)vs.Precio;
+                    }
+                }
+
+                if (repuestos.Count != 0)
+                {
+                    foreach (var vr in repuestos)
+                    {
+                        valorRepuestos += (float)vr.Precio;
+                    }
+                }
+
+                var data = await (from s in db.Servicio
+                                  join t in db.TipoServicio
+                                  on s.IdTipoServ equals t.IdTipoServ
+                                  join c in db.Cliente on s.IdCliente equals c.IdCliente
+                                  where s.Id == id
+                                  select new DetallesServicio
+                                  {
+                                      Id = s.Id,
+                                      Nombre = s.Nombre,
+                                      Descripcion = s.Descripcion,
+                                      Tipo = t.Nombre,
+                                      Cliente = c.Nombre + c.Apellido,
+                                      Fecha = s.Fecha,
+                                      Suministros = suministros,
+                                      Repuestos = repuestos,
+                                      Vrepuestos = valorRepuestos,
+                                      Vsuministros = valorSuministros,
+                                      Vtiposervicio = t.Costo,
+                                      Viatico = (float?)s.Viatico,
+                                      Total = (float?)s.Viatico + t.Costo + valorRepuestos + valorSuministros,
+                                  }).FirstOrDefaultAsync();
+                
+                foreach(var it in suministros)
+                {
+                    Console.WriteLine(it.Nombre);
+                    Console.WriteLine(it.Precio);
+                }
+                
+                
+                return View(data);
+            }
+        }
+         
+
+        
+        //post pago
+        public async Task<IActionResult> Pago(int id, float Total)
+        {
+            var pago = new Pago();
+            pago.IdServicio = id;
+            pago.Valor = Total;
+            pago.Estado = true;
+
+           
+            
+            if (ModelState.IsValid)
             {
-                return NotFound();
-            }
+                _context.Add(pago);
+                await _context.SaveChangesAsync();
+                var ser = await _context.Servicio.FindAsync(id);
+                    ser.Estado = false;
+                    _context.Servicio.Update(ser);
+                    await _context.SaveChangesAsync();
+                return  RedirectToAction(nameof(Index));
 
+            }
+          
             return View(pago);
         }
+
 
         // GET: Pagoes/Create
         public IActionResult Create()

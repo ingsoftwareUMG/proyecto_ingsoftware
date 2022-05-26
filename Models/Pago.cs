@@ -4,6 +4,15 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 namespace printSmart.Models
 {
+    public class PagoDetalle
+    {
+        public int IdPago;
+        public string? Servicio;
+        public string? Cliente;
+        public float? Importe;
+        public int IdServicio;
+    }
+    
     public partial class Pago
     {
 

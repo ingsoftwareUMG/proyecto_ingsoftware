@@ -1,11 +1,12 @@
 ﻿@model printSmart.Models.TipoServicio
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalles";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div class="container-fluid">
 
-<h1>Details</h1>
+<h1>Detalles del tipo de servicio</h1>
 
 <div>
     <h4>TipoServicio</h4>
@@ -38,6 +39,7 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.IdTipoServ">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a class="btn btn-info" asp-action="Edit" asp-route-id="@Model?.IdTipoServ">Editar</a> |
+    <a class="btn btn-warning" asp-action="Index">Regresar</a>
+</div>
 </div>

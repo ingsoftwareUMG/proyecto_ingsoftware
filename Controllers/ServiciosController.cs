@@ -28,7 +28,6 @@ namespace printSmart.Controllers
                                   join t in db.TipoServicio
                                   on s.IdTipoServ equals t.IdTipoServ
                                   join c in db.Cliente on s.IdCliente equals c.IdCliente
-                                  join p in db.Producto on s.IdProducto equals p.IdProducto
                                   where s.Estado  == true
                                   orderby s.Fecha ascending
                                   select new ServiciosDetalles
@@ -39,8 +38,6 @@ namespace printSmart.Controllers
                                       Tipo = t.Nombre,
                                       Cliente = c.Nombre + c.Apellido,
                                       Fecha = s.Fecha,
-                                      Producto = p.Nombre
-                                      
                                   }).ToListAsync();
                 return View(data);
             }
@@ -66,13 +63,56 @@ namespace printSmart.Controllers
                 return NotFound();
             }
 
+            
+            
             using (var db = _context)
             {
+                float valorSuministros=0;
+                float valorRepuestos = 0;
+                
+                var suministros = await (from ss in db.ServicioSuministro
+                                         join sm in db.Suministros
+                                         on ss.IdSuministro equals sm.IdSuministro
+                                         where ss.IdServicio == id
+                                         select new Suministros
+                                         {
+                                             Nombre = sm.Nombre,
+                                             Precio = sm.Precio,
+                                         }).ToListAsync();
+
+                var repuestos = await (from sr in db.ServicioRepuesto
+                                       join r in db.Repuesto
+                                       on sr.IdRepuesto equals r.IdRepuesto
+                                       where sr.IdServicio == id
+                                       select new Repuesto
+                                       {
+                                           Nombre = r.Nombre,
+                                           Precio = r.Precio,
+                                       }).ToListAsync();
+                
+
+
+
+                if(suministros.Count != 0)
+                {
+                    foreach(var vs in suministros)
+                    {
+                        valorSuministros += (float)vs.Precio;
+                    }
+                }
+                
+                if(repuestos.Count != 0)
+                {
+                    foreach(var vr in repuestos)
+                    {
+                        valorRepuestos += (float)vr.Precio;
+                    }
+                }
+
                 var data = await (from s in db.Servicio
                                   join t in db.TipoServicio
                                   on s.IdTipoServ equals t.IdTipoServ
                                   join c in db.Cliente on s.IdCliente equals c.IdCliente
-                                  join p in db.Producto on s.IdProducto equals p.IdProducto
                                   where s.Id == id
                                   select new DetallesServicio
                                   {
@@ -82,48 +122,19 @@ namespace printSmart.Controllers
                                       Tipo = t.Nombre,
                                       Cliente = c.Nombre + c.Apellido,
                                       Fecha = s.Fecha,
-                                      Producto = p.Nombre,
-                                      Vproducto = 10,
+                                      Suministros = suministros,
+                                      Repuestos = repuestos,
+                                      Vrepuestos = valorRepuestos,
+                                      Vsuministros = valorSuministros,
                                       Vtiposervicio = t.Costo,
-                                      Vviatico =(float?)s.Viatico,
-                                      Total = (float?)s.Viatico + t.Costo+10,
+                                      Viatico = (float?)s.Viatico,
+                                      Total = (float?)s.Viatico + t.Costo + valorRepuestos+valorSuministros,
                                   }).FirstOrDefaultAsync();
+               
                 return View(data);
             }
 
-            /*
-             * 
-             * 
-             * 
-             *  public int Id;
-        public string? Nombre;
-        public string? Descripcion;
-        public string? Tipo;
-        public string? Cliente;
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")]
-        public DateTime? Fecha;
-        public string? Producto;
-        public float? valorProducto;
-        public float? valorTipoServicio;
-        public float? valorViatico;
-        public float? Total;
-            var servicio = await _context.Servicio
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (servicio == null)
-            {
-                return NotFound();
-            }
-            var cliente = await _context.Cliente.FirstOrDefaultAsync(c => c.IdCliente == servicio.IdCliente);
-            var empleado = await _context.Empleado.FirstOrDefaultAsync(e => e.IdEmpleado == servicio.IdEmpleado);
-            var tipo = await _context.TipoServicio.FirstOrDefaultAsync(t => t.IdTipoServ == servicio.IdTipoServ);
-            var producto = await _context.Producto.FirstOrDefaultAsync(p => p.IdProducto == servicio.IdProducto);
-            //ar producto = await _context.Producto.FirstOrDefaultAsync(p => p.IdProducto == servicio.IdProducto);
-            //r tarifa = await _context.TipoServicio.FirstOrDefaultAsync(t => t.IdTipoServ == servicio.IdTipoServ);
-
-            ViewData["Total"] = servicio.Viatico + tipo.Costo;
-            ViewData["Cliente"] = cliente.Nombre;
-            ViewData["Empleado]
-            return View(servicio);*/
+            
         }
 
         // GET: Servicios/Create
@@ -131,7 +142,6 @@ namespace printSmart.Controllers
         {
             ViewData["IdCliente"] = new SelectList(_context.Cliente, "IdCliente", "Nombre");
             ViewData["IdEmpleado"] = new SelectList(_context.Empleado, "IdEmpleado", "Nombre");
-            ViewData["IdProducto"] = new SelectList(_context.Producto, "IdProducto", "Nombre");
             ViewData["IdTipoServ"] = new SelectList(_context.TipoServicio, "IdTipoServ", "Nombre");
             return View();
         }
@@ -168,7 +178,6 @@ namespace printSmart.Controllers
 
             ViewData["IdCliente"] = new SelectList(_context.Cliente, "IdCliente", "Nombre");
             ViewData["IdEmpleado"] = new SelectList(_context.Empleado, "IdEmpleado", "Nombre");
-            ViewData["IdProducto"] = new SelectList(_context.Producto, "IdProducto", "Nombre");
             ViewData["IdTipoServ"] = new SelectList(_context.TipoServicio, "IdTipoServ", "Nombre");
             return View(servicio);
         }

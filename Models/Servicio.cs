@@ -14,7 +14,7 @@ namespace printSmart.Models
         public string? Cliente;
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")]
         public DateTime? Fecha;
-        public string? Producto;
+        public bool? Estado;
         
     }
 
@@ -27,11 +27,13 @@ namespace printSmart.Models
         public string? Cliente;
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")]
         public DateTime? Fecha;
-        public string? Producto;
-        public float? Vproducto;
         public float? Vtiposervicio;
+        public List<Suministros>?Suministros;
+        public List<Repuesto>? Repuestos;
+        public float? Vsuministros;
+        public float? Vrepuestos;
         [Display(Name = "Viatico")]
-        public float? Vviatico;
+        public float? Viatico;
         public float? Total;
     }
 
@@ -39,6 +41,13 @@ namespace printSmart.Models
 
     public partial class Servicio
     {
+        public Servicio()
+        {
+            ServicioSuministro = new HashSet<ServicioSuministro>();
+            ServicioRepuesto = new HashSet<ServicioRepuesto>();
+        }
+        
+        
         [Key]
         public int Id { get; set; }
         
@@ -64,11 +73,12 @@ namespace printSmart.Models
         [Display(Name = "Responsable")]
         public long? IdEmpleado { get; set; }
         [Display(Name = "Producto")]
-        public long? IdProducto { get; set; }
-
+        public virtual ICollection<ServicioSuministro> ServicioSuministro { get; set; }
+        public virtual ICollection<ServicioRepuesto> ServicioRepuesto { get; set; }
+    
         public virtual TipoServicio? IdTipoServNavigation { get; set; }
         public virtual Cliente? IdClienteNavigation { get; set; }
         public virtual Empleado? IdEmpleadoNavigation { get; set; }
-        public virtual Producto? IdProductoNavigation { get; set; }
+        
     }
 }

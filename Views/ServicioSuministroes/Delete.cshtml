@@ -1,0 +1,76 @@
+﻿@model printSmart.Models.ServicioSuministro
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container-fluid">
+<h3>Quieres eliminar esta asignacion?</h3>
+<div>
+    <h4>Detalles de la asignacion</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IdSuministro)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IdSuministro)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IdServicio)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IdServicio)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Estado)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Estado)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Eliminar" class="btn btn-danger" /> |
+        <a class="btn btn-warning" asp-action="Index"><i class="fa fa-angle-left"></i>Regresar</a>
+    </form>
+</div>
+</div>
+
+<!--
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>ServicioSuministro</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            Html.DisplayNameFor(model => model.IdSuministro)
+        </dt>
+        <dd class = "col-sm-10">
+            Html.DisplayFor(model => model.IdSuministro)
+        </dd>
+        <dt class = "col-sm-2">
+            Html.DisplayNameFor(model => model.IdServicio)
+        </dt>
+        <dd class = "col-sm-10">
+            Html.DisplayFor(model => model.IdServicio)
+        </dd>
+        <dt class = "col-sm-2">
+            Html.DisplayNameFor(model => model.Estado)
+        </dt>
+        <dd class = "col-sm-10">
+            Html.DisplayFor(model => model.Estado)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>
+-->

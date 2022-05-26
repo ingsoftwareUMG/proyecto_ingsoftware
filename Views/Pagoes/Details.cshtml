@@ -1,37 +1,179 @@
-﻿@model printSmart.Models.Pago
-
+﻿@model printSmart.Models.DetallesServicio
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Recibo";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div class="container-fluid">
 
-<h1>Details</h1>
+<h1>Recibo de pago</h1>
 
-<div>
-    <h4>Pago</h4>
+<div class="row">
     <hr />
+    <div class="col-md-5">
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IdServicio)
+            Servicio:
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdServicio)
+            @Html.DisplayFor(model => model.Nombre)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Valor)
+            @Html.DisplayNameFor(model => model.Descripcion):
+        </dt>
+        <dd class = "col-sm-12">
+            @Html.DisplayFor(model => model.Descripcion)
+        </dd>
+        
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Fecha):
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Valor)
+            @Html.DisplayFor(model => model.Fecha)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Estado)
+            @Html.DisplayNameFor(model => model.Cliente):
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Estado)
+            @Html.DisplayFor(model => model.Cliente)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Viatico):
+        </dt>
+        <dd class = "col-sm-10">
+            Q.
+            @Html.DisplayFor(model => model.Viatico)
+        </dd>
+        </dl>
+     </div>
+     <div class="col-md-5">
+         <dl class="row">
+        <dt class = "col-sm-2">
+            Suministros:
+        </dt>
+        <dd class = "col-sm-12">
+            Q.
+            @Html.DisplayFor(model => model.Vsuministros)
+        </dd>
+        <dt class = "col-sm-2">
+            Repuestos:
+        </dt>
+        <dd class = "col-sm-12">
+            Q.
+            @Html.DisplayFor(model => model.Vrepuestos)
+        </dd>
+        <dt class = "col-sm-2">
+            Tipo de Servicio:
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Tipo)| Q. 
+            @Html.DisplayFor(model => model.Vtiposervicio)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Total):
+        </dt>
+        <dd class = "col-sm-10">
+            Q. 
+            @Html.DisplayFor(model=>model.Total)
         </dd>
     </dl>
+    </div>
+</div>
+     
+<div class="row">
+     <div class="col-md-5">
+          <div class="card mb-4">
+                <div class="card-header">
+                     <i class="fas fa-table me-1"></i>
+                         Suministros del servicio
+                </div>
+                <div class="card-body">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Detalle</th>
+                                <th>Costo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                if (Model.Suministros.Count !=0)
+                                {
+                                    foreach (var item in Model.Suministros)
+                                    { 
+                                       <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Nombre)
+                                            </td>
+                                            <td>
+                                                Detalle
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Precio)
+                                            </td>
+                                        </tr>
+                                    }
+                                    
+                                }
+                                else
+                                {
+                                    <tr>No ha suministros</tr>
+                                }
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-table me-1"></i>
+                    Repuestos del servicio
+                </div>
+                <div class="card-body">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Detalle</th>
+                                <th>Costo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                if (Model.Repuestos.Count != 0)
+                                {
+                                    foreach (var item in Model.Repuestos)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Nombre)
+                                            </td>
+                                            <td>
+                                                Detalle
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Precio)
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>No ha suministros</tr>
+                                }
+                            }
+                            
+                            </tbody>
+                 </table>
+                 </div>
+            </div>         
+        </div>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.IdPago">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <p>Fecha y hora: @(DateTime.Now)</p>
 </div>
+</div>
+   

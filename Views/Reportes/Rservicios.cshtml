@@ -1,0 +1,89 @@
+﻿@model IEnumerable<printSmart.Models.ReporteServicioss>
+
+@{
+    ViewData["Title"] = "Rservicios";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container-fluid text-center">
+    
+    <h1>PrintSmart</h1>
+    <h2>Informe de Servicios</h2>
+    <hr />
+<div class="container-fluid">
+           <div class="card mb-4">
+                <div class="card-header">
+                     <i class="fas fa-table me-1"></i>
+                         Listado de servicios
+                </div>
+                <div class="card-body">
+                    <table class="table" >
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Nombre)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Descripcion)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Tipo)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Cliente)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Fecha)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model=> model.Monto)
+                                </th>
+                                <th>
+                                    Pago
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                    @foreach (var item in Model) {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Nombre)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Descripcion)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Tipo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Cliente)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Fecha)
+                                </td>
+                                <td>
+                                    Q. 
+                                    @Html.DisplayFor(modelItem => item.Monto)
+                                </td>
+                                <td>
+                                    @{
+                                        bool estado = (bool)item.Estado;
+                                        if (estado)
+                                        {
+                                            <span>Pendiente</span>
+                                        }
+                                        else
+                                        {
+                                            <span>Cancelado</span>
+                                        }
+
+                                    }
+                                </td>
+                            </tr>
+                    }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+</div>
+<p>Fecha y hora: @(DateTime.Now)</p>
+</div>

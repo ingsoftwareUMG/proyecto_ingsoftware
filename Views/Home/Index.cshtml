@@ -1,8 +1,29 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Inicio";
 }
-
+<div class="container-fluid">
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">aplicacion printsmart</a>.</p>
+    <h1 class="display-4">Bienvenido</h1>
+    <h2>SmartPrint</h2>
+    <p>
+        Vision y proposito de la empresa
+    </p>
+    
+    <img src="~/assets/img/logo.jpeg"/>
+    <br />
+</div>
+<div class="row justify-content-center">
+    <div>
+    <a class="btn btn-primary" asp-area="" asp-controller="Servicios" asp-action="Index">Modulo Servicios</a>
+    </div>
+    <div>
+    <a class="btn btn-primary" asp-area="" asp-controller="Servicios" asp-action="Index">Modulo Reportes</a>
+    </div>
+    <div>
+    <a class="btn btn-primary" asp-area="" asp-controller="Servicios" asp-action="Index">Modulo Clientes</a> 
+    </div>
+    <div>
+    <a class="btn btn-primary" asp-area="" asp-controller="Servicios" asp-action="Index">Servicios</a>
+    </div>
+</div>
 </div>

@@ -1,0 +1,62 @@
+﻿@model IEnumerable<printSmart.Models.ServicioRepuestoDetalle>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container-fluid">
+ <div class="row">
+     <h1>Repuestos Asignados</h1>
+    <p>
+        <a class="btn btn-success" asp-action="Create">Asignar Repuesto</a>
+    </p>
+ </div>
+
+
+<hr />
+<div class="row">
+    <div class="container-fluid">
+          <div class="card mb-4">
+                <div class="card-header">
+                     <i class="fas fa-table"></i>
+                         Repuestos asignados recientes
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Servicio)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Repuesto)
+                                </th>
+                                <th>Opciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                           
+                                @foreach (var item in Model) 
+                                {
+                                   <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Servicio)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Repuesto)
+                                        </td>
+                                        <td>
+                                           <a class="btn btn-info" asp-action="Edit" asp-route-id="@item.Id"><i class="fa fa-edit"></i></a> |
+                                           <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id"><i class="fa fa-times"></i></a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                       </table>
+                   </div>
+           </div>
+      </div>
+    
+</div>
+    
+</div>

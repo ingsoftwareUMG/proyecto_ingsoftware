@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<printSmart.Models.TipoServicio>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Tipo Servicios";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -9,39 +9,29 @@
     <div class="col-10 mt-2">
         <div class="row">
                 <div class="col">
-                <h2>Listado de Tipo de servicios </h2>
-
+                    <h2>Listado de Tipo de servicios </h2>
                 </div>
                 <div class="col">
-                <a class="btn btn-success" asp-action="Create">Nuevo Tipo </a>
+                    <a class="btn btn-success" asp-action="Create">Nuevo Tipo </a>
                 </div>
-                <p>
-             </p>
-            </div>
-            <div class="container">
+        </div>
+            <div class="container-fluid">
                <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
                                 Tipos de Servicios
                             </div>
                             <div class="card-body">
-                                <table id="datatablesSimple">
+                                <table class="table">
                                     <thead>
                                         <tr>
                                             <th>Nombre</th>
                                             <th>Descripcion</th>
                                             <th>Costo</th>
                                             <th>Estado</th>
+                                            <th>Opciones</th>
                                         </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Nombre</th>
-                                            <th>Descripcion</th>
-                                            <th>Costo</th>
-                                            <th>Estado</th>
-                                        </tr>
-                                    </tfoot>
                                     <tbody>
                                         @foreach (var item in Model) {
                                             <tr>
@@ -58,11 +48,11 @@
                                                     @Html.DisplayFor(modelItem => item.Estado)
                                                 </td>
                                                 <td>
-                                                    <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.IdTipoServ">Edit</a> |
-                                                    <a class="btn btn-info" asp-action="Details" asp-route-id="@item.IdTipoServ">Details</a> |
-                                                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.IdTipoServ">Delete</a>
+                                                    <a class="btn btn-info" asp-action="Edit" asp-route-id="@item.IdTipoServ"><i class="fa fa-edit"></i></a> |
+                                                    <a class="btn btn-warning" asp-action="Details" asp-route-id="@item.IdTipoServ"><i class="fa fa-list-ul"></i></a> |
+                                                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.IdTipoServ"><i class="fa fa-times"></i></a>
                                                 </td>
-                                        </tr>
+                                            </tr>
                                         }
                                     </tbody>
                                  </table>

@@ -1,48 +1,61 @@
-﻿@model IEnumerable<printSmart.Models.Pago>
+﻿@model IEnumerable<printSmart.Models.PagoDetalle>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Pagos";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div class="container-fluid">
 
-<h1>Index</h1>
+<h1>Registro de pagos</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.IdServicio)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Valor)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Estado)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdServicio)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Valor)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Estado)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.IdPago">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.IdPago">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdPago">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<hr />
+<div class="row">
+    <div class="container-fluid">
+          <div class="card mb-4">
+                <div class="card-header">
+                     <i class="fas fa-credit-card"></i>
+                         Registros de pagos
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Servicio)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Cliente)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Importe)
+                                </th>
+                                <th>Opciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                           
+                                @foreach (var item in Model) {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Servicio)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Cliente)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Importe)
+                                            </td>
+                                            <td>
+                                                <a class="btn btn-success" asp-action="Details" asp-route-id="@item.IdServicio"><i class="fas fa-print"></i> | Imprimir</a>
+                                            </td>
+                                        </tr>
+                                }
+                            </tbody>
+                       </table>
+                   </div>
+           </div>
+      </div>
+    
+</div>
+    
+</div>

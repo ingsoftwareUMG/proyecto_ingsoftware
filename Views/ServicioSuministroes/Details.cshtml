@@ -1,4 +1,4 @@
-﻿@model printSmart.Models.Producto
+﻿@model printSmart.Models.ServicioSuministro
 
 @{
     ViewData["Title"] = "Details";
@@ -8,20 +8,20 @@
 <h1>Details</h1>
 
 <div>
-    <h4>Producto</h4>
+    <h4>ServicioSuministro</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Nombre)
+            @Html.DisplayNameFor(model => model.IdSuministro)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Nombre)
+            @Html.DisplayFor(model => model.IdSuministro)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Descripcion)
+            @Html.DisplayNameFor(model => model.IdServicio)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Descripcion)
+            @Html.DisplayFor(model => model.IdServicio)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Estado)
@@ -32,6 +32,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.IdProducto">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>

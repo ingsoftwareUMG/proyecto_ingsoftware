@@ -105,30 +105,26 @@ namespace printSmart.Migrations
                     b.ToTable("Pago");
                 });
 
-            modelBuilder.Entity("printSmart.Models.Producto", b =>
+            modelBuilder.Entity("printSmart.Models.Repuesto", b =>
                 {
-                    b.Property<long>("IdProducto")
+                    b.Property<long>("IdRepuesto")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdProducto"), 1L, 1);
-
-                    b.Property<string>("Descripcion")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdRepuesto"), 1L, 1);
 
                     b.Property<bool>("Estado")
                         .HasColumnType("bit");
 
                     b.Property<string>("Nombre")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("IdProducto");
+                    b.Property<float?>("Precio")
+                        .HasColumnType("real");
 
-                    b.ToTable("Producto");
+                    b.HasKey("IdRepuesto");
+
+                    b.ToTable("Repuesto");
                 });
 
             modelBuilder.Entity("printSmart.Models.Servicio", b =>
@@ -160,12 +156,6 @@ namespace printSmart.Migrations
                     b.Property<long?>("IdEmpleadoNavigationIdEmpleado")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("IdProducto")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("IdProductoNavigationIdProducto")
-                        .HasColumnType("bigint");
-
                     b.Property<long?>("IdTipoServ")
                         .HasColumnType("bigint");
 
@@ -186,11 +176,95 @@ namespace printSmart.Migrations
 
                     b.HasIndex("IdEmpleadoNavigationIdEmpleado");
 
-                    b.HasIndex("IdProductoNavigationIdProducto");
-
                     b.HasIndex("IdTipoServNavigationIdTipoServ");
 
                     b.ToTable("Servicio");
+                });
+
+            modelBuilder.Entity("printSmart.Models.ServicioRepuesto", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
+
+                    b.Property<bool>("Estado")
+                        .HasColumnType("bit");
+
+                    b.Property<long?>("IdRepuesto")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("IdRepuestoNavigationIdRepuesto")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("IdServicio")
+                        .HasColumnType("bigint");
+
+                    b.Property<int?>("IdServicioNavigarionId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdRepuestoNavigationIdRepuesto");
+
+                    b.HasIndex("IdServicioNavigarionId");
+
+                    b.ToTable("ServicioRepuesto");
+                });
+
+            modelBuilder.Entity("printSmart.Models.ServicioSuministro", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
+
+                    b.Property<bool>("Estado")
+                        .HasColumnType("bit");
+
+                    b.Property<long?>("IdServicio")
+                        .HasColumnType("bigint");
+
+                    b.Property<int?>("IdServicioNavigarionId")
+                        .HasColumnType("int");
+
+                    b.Property<long?>("IdSuministro")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("IdSuministroNavigationIdSuministro")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdServicioNavigarionId");
+
+                    b.HasIndex("IdSuministroNavigationIdSuministro");
+
+                    b.ToTable("ServicioSuministro");
+                });
+
+            modelBuilder.Entity("printSmart.Models.Suministros", b =>
+                {
+                    b.Property<long>("IdSuministro")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdSuministro"), 1L, 1);
+
+                    b.Property<bool>("Estado")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Nombre")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<float?>("Precio")
+                        .HasColumnType("real");
+
+                    b.HasKey("IdSuministro");
+
+                    b.ToTable("Suministros");
                 });
 
             modelBuilder.Entity("printSmart.Models.TipoServicio", b =>
@@ -232,10 +306,6 @@ namespace printSmart.Migrations
                         .WithMany("Servicio")
                         .HasForeignKey("IdEmpleadoNavigationIdEmpleado");
 
-                    b.HasOne("printSmart.Models.Producto", "IdProductoNavigation")
-                        .WithMany("Servicio")
-                        .HasForeignKey("IdProductoNavigationIdProducto");
-
                     b.HasOne("printSmart.Models.TipoServicio", "IdTipoServNavigation")
                         .WithMany("Servicio")
                         .HasForeignKey("IdTipoServNavigationIdTipoServ");
@@ -244,9 +314,37 @@ namespace printSmart.Migrations
 
                     b.Navigation("IdEmpleadoNavigation");
 
-                    b.Navigation("IdProductoNavigation");
-
                     b.Navigation("IdTipoServNavigation");
+                });
+
+            modelBuilder.Entity("printSmart.Models.ServicioRepuesto", b =>
+                {
+                    b.HasOne("printSmart.Models.Repuesto", "IdRepuestoNavigation")
+                        .WithMany("ServicioRepuesto")
+                        .HasForeignKey("IdRepuestoNavigationIdRepuesto");
+
+                    b.HasOne("printSmart.Models.Servicio", "IdServicioNavigarion")
+                        .WithMany("ServicioRepuesto")
+                        .HasForeignKey("IdServicioNavigarionId");
+
+                    b.Navigation("IdRepuestoNavigation");
+
+                    b.Navigation("IdServicioNavigarion");
+                });
+
+            modelBuilder.Entity("printSmart.Models.ServicioSuministro", b =>
+                {
+                    b.HasOne("printSmart.Models.Servicio", "IdServicioNavigarion")
+                        .WithMany("ServicioSuministro")
+                        .HasForeignKey("IdServicioNavigarionId");
+
+                    b.HasOne("printSmart.Models.Suministros", "IdSuministroNavigation")
+                        .WithMany("ServicioSuministro")
+                        .HasForeignKey("IdSuministroNavigationIdSuministro");
+
+                    b.Navigation("IdServicioNavigarion");
+
+                    b.Navigation("IdSuministroNavigation");
                 });
 
             modelBuilder.Entity("printSmart.Models.Cliente", b =>
@@ -259,9 +357,21 @@ namespace printSmart.Migrations
                     b.Navigation("Servicio");
                 });
 
-            modelBuilder.Entity("printSmart.Models.Producto", b =>
+            modelBuilder.Entity("printSmart.Models.Repuesto", b =>
                 {
-                    b.Navigation("Servicio");
+                    b.Navigation("ServicioRepuesto");
+                });
+
+            modelBuilder.Entity("printSmart.Models.Servicio", b =>
+                {
+                    b.Navigation("ServicioRepuesto");
+
+                    b.Navigation("ServicioSuministro");
+                });
+
+            modelBuilder.Entity("printSmart.Models.Suministros", b =>
+                {
+                    b.Navigation("ServicioSuministro");
                 });
 
             modelBuilder.Entity("printSmart.Models.TipoServicio", b =>

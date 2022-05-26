@@ -1,0 +1,108 @@
+﻿@model IEnumerable<printSmart.Models.ServicioSuministroDetalle>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container-fluid">
+ <div class="row">
+     <h1>Suministros Asignados</h1>
+    <p>
+        <a class="btn btn-success" asp-action="Create">Asignar Suministro</a>
+    </p>
+ </div>
+
+
+<hr />
+<div class="row">
+    <div class="container-fluid">
+          <div class="card mb-4">
+                <div class="card-header">
+                     <i class="fas fa-table"></i>
+                         Repuestos asignados recientes
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Servicio)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Repuesto)
+                                </th>
+                                <th>Opciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                           
+                                @foreach (var item in Model) 
+                                {
+                                   <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Servicio)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Repuesto)
+                                        </td>
+                                        <td>
+                                           <a class="btn btn-info" asp-action="Edit" asp-route-id="@item.Id"><i class="fa fa-edit"></i></a> |
+                                           <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id"><i class="fa fa-times"></i></a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                       </table>
+                   </div>
+           </div>
+      </div>
+    
+</div>
+    
+</div>
+
+
+<!--
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Html.DisplayNameFor(model => model.IdSuministro)
+            </th>
+            <th>
+                Html.DisplayNameFor(model => model.IdServicio)
+            </th>
+            <th>
+                Html.DisplayNameFor(model => model.Estado)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+foreach (var item in Model) {
+        <tr>
+            <td>
+                Html.DisplayFor(modelItem => item.IdSuministro)
+            </td>
+            <td>
+                Html.DisplayFor(modelItem => item.IdServicio)
+            </td>
+            <td>
+                Html.DisplayFor(modelItem => item.Estado)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+-->

@@ -1,72 +1,163 @@
 ﻿@model printSmart.Models.DetallesServicio
-
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalles";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="container-fluid">
 
 <h1>Detalles servicio</h1>
 
-<div>
+<div class="row">
     <hr />
+    <div class="col-md-5">
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Nombre)
+            Servicio:
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Nombre)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Descripcion)
+            @Html.DisplayNameFor(model => model.Descripcion):
         </dt>
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-12">
             @Html.DisplayFor(model => model.Descripcion)
         </dd>
         
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Fecha)
+            @Html.DisplayNameFor(model => model.Fecha):
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Fecha)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Cliente)
+            @Html.DisplayNameFor(model => model.Cliente):
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Cliente)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Producto)
+            @Html.DisplayNameFor(model => model.Viatico):
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Producto)|Q. 
-            @Html.DisplayFor(model => model.Vproducto)
+            Q.
+            @Html.DisplayFor(model => model.Viatico)
         </dd>
+        </dl>
+     </div>
+     <div class="col-md-5">
+         <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Vviatico)
+            Suministros:
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Vviatico)
+        <dd class = "col-sm-12">
+            Q.
+            @Html.DisplayFor(model => model.Vsuministros)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Tipo)
+            Repuestos:
+        </dt>
+        <dd class = "col-sm-12">
+            Q.
+            @Html.DisplayFor(model => model.Vrepuestos)
+        </dd>
+        <dt class = "col-sm-2">
+            Tipo de Servicio:
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Tipo)| Q. 
             @Html.DisplayFor(model => model.Vtiposervicio)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Total)
+            @Html.DisplayNameFor(model => model.Total):
         </dt>
         <dd class = "col-sm-10">
             Q. 
             @Html.DisplayFor(model=>model.Total)
         </dd>
     </dl>
+    </div>
 </div>
-<div>
-    <a asp-action="Edit" class="btn btn-info" asp-route-id="@Model?.Id">Editar</a> |
-    <a asp-action="Index" class="btn btn-warning">Regresar</a>
+     
+<div class="row">
+     <div class="col-md-5">
+          <div class="card mb-4">
+                <div class="card-header">
+                     <i class="fas fa-table me-1"></i>
+                         Suministros del servicio
+                </div>
+                <div class="card-body">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Detalle</th>
+                                <th>Costo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Suministros)
+                            { 
+                               <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Nombre)
+                                    </td>
+                                    <td>
+                                        Detalle
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Precio)
+                                    </td>
+                                </tr>
+                              }
+                            </tbody>
+                       </table>
+                   </div>
+           </div>
+      </div>
+      <div class="col-md-5">
+           <div class="card mb-4">
+                <div class="card-header">
+                     <i class="fas fa-table me-1"></i>
+                         Repuestos del servicio
+                </div>
+                <div class="card-body">
+                <table>
+                       <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Detalle</th>
+                                <th>Costo</th>
+                             </tr>
+                        </thead>
+                         <tbody>
+                            @foreach (var item in Model.Repuestos){
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Nombre)
+                                        </td>
+                                        <td>
+                                            Detalle
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Precio)
+                                        </td>
+                                    </tr>
+                              }
+                            </tbody>
+                 </table>
+                 </div>
+            </div>         
+        </div>
+</div>
+<div class="row">
+    @using (Html.BeginForm("Pago", "Pagoes")) 
+{
+    <input type="hidden" name="id" asp-for="Id" />
+    <input type="hidden" name="Total" asp-for="Total" />
+    <button class="btn btn-primary" type="submit">Cobrar</button>
+    <a asp-action="Index" class="btn btn-warning"><i class="fa fa-angle-left"></i>Regresar</a>
+}
+    
 </div>
 </div>

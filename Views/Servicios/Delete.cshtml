@@ -1,7 +1,7 @@
 ﻿@model printSmart.Models.Servicio
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Eliminar";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -40,36 +40,12 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Estado)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IdTipoServ)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdTipoServ)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IdCliente)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdCliente)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IdEmpleado)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdEmpleado)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IdProducto)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdProducto)
-        </dd>
     </dl>
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index" class="btn btn-warning">Regresar</a>
+        <input type="submit" value="Eliminar" class="btn btn-danger" /> |
+        <a asp-action="Index" class="btn btn-warning"><i class="fa fa-angle-left"></i>Regresar</a>
     </form>
 </div>
 </div>

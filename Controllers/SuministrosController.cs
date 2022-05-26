@@ -1,5 +1,4 @@
-﻿#nullable disable
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,85 +10,87 @@ using printSmart.data;
 
 namespace printSmart.Controllers
 {
-    public class ProductoesController : Controller
+    public class SuministrosController : Controller
     {
         private readonly AplicationDbContext _context;
 
-        public ProductoesController(AplicationDbContext context)
+        public SuministrosController(AplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Productoes
+        // GET: Suministros
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Producto.ToListAsync());
+              return _context.Suministros != null ? 
+                          View(await _context.Suministros.ToListAsync()) :
+                          Problem("Entity set 'AplicationDbContext.Suministros'  is null.");
         }
 
-        // GET: Productoes/Details/5
+        // GET: Suministros/Details/5
         public async Task<IActionResult> Details(long? id)
         {
-            if (id == null)
+            if (id == null || _context.Suministros == null)
             {
                 return NotFound();
             }
 
-            var producto = await _context.Producto
-                .FirstOrDefaultAsync(m => m.IdProducto == id);
-            if (producto == null)
+            var suministros = await _context.Suministros
+                .FirstOrDefaultAsync(m => m.IdSuministro == id);
+            if (suministros == null)
             {
                 return NotFound();
             }
 
-            return View(producto);
+            return View(suministros);
         }
 
-        // GET: Productoes/Create
+        // GET: Suministros/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Productoes/Create
+        // POST: Suministros/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdProducto,Nombre,Descripcion,Estado")] Producto producto)
+        public async Task<IActionResult> Create([Bind("IdSuministro,Nombre,Precio,Estado")] Suministros suministros)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(producto);
+                _context.Add(suministros);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(producto);
+            return View(suministros);
         }
 
-        // GET: Productoes/Edit/5
+        // GET: Suministros/Edit/5
         public async Task<IActionResult> Edit(long? id)
         {
-            if (id == null)
+            if (id == null || _context.Suministros == null)
             {
                 return NotFound();
             }
 
-            var producto = await _context.Producto.FindAsync(id);
-            if (producto == null)
+            var suministros = await _context.Suministros.FindAsync(id);
+            if (suministros == null)
             {
                 return NotFound();
             }
-            return View(producto);
+            return View(suministros);
         }
 
-        // POST: Productoes/Edit/5
+        // POST: Suministros/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("IdProducto,Nombre,Descripcion,Estado")] Producto producto)
+        public async Task<IActionResult> Edit(long id, [Bind("IdSuministro,Nombre,Precio,Estado")] Suministros suministros)
         {
-            if (id != producto.IdProducto)
+            if (id != suministros.IdSuministro)
             {
                 return NotFound();
             }
@@ -98,12 +99,12 @@ namespace printSmart.Controllers
             {
                 try
                 {
-                    _context.Update(producto);
+                    _context.Update(suministros);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProductoExists(producto.IdProducto))
+                    if (!SuministrosExists(suministros.IdSuministro))
                     {
                         return NotFound();
                     }
@@ -114,41 +115,49 @@ namespace printSmart.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(producto);
+            return View(suministros);
         }
 
-        // GET: Productoes/Delete/5
+        // GET: Suministros/Delete/5
         public async Task<IActionResult> Delete(long? id)
         {
-            if (id == null)
+            if (id == null || _context.Suministros == null)
             {
                 return NotFound();
             }
 
-            var producto = await _context.Producto
-                .FirstOrDefaultAsync(m => m.IdProducto == id);
-            if (producto == null)
+            var suministros = await _context.Suministros
+                .FirstOrDefaultAsync(m => m.IdSuministro == id);
+            if (suministros == null)
             {
                 return NotFound();
             }
 
-            return View(producto);
+            return View(suministros);
         }
 
-        // POST: Productoes/Delete/5
+        // POST: Suministros/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
-            var producto = await _context.Producto.FindAsync(id);
-            _context.Producto.Remove(producto);
+            if (_context.Suministros == null)
+            {
+                return Problem("Entity set 'AplicationDbContext.Suministros'  is null.");
+            }
+            var suministros = await _context.Suministros.FindAsync(id);
+            if (suministros != null)
+            {
+                _context.Suministros.Remove(suministros);
+            }
+            
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ProductoExists(long id)
+        private bool SuministrosExists(long id)
         {
-            return _context.Producto.Any(e => e.IdProducto == id);
+          return (_context.Suministros?.Any(e => e.IdSuministro == id)).GetValueOrDefault();
         }
     }
 }
