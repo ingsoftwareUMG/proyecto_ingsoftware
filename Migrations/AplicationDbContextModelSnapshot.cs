@@ -22,6 +22,26 @@ namespace printSmart.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("printSmart.Models.Categorium", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categoria");
+                });
+
             modelBuilder.Entity("printSmart.Models.Cliente", b =>
                 {
                     b.Property<long>("IdCliente")
@@ -50,6 +70,80 @@ namespace printSmart.Migrations
                     b.HasKey("IdCliente");
 
                     b.ToTable("Cliente");
+                });
+
+            modelBuilder.Entity("printSmart.Models.Collectioncc", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<decimal?>("Amount")
+                        .IsRequired()
+                        .HasColumnType("numeric(18,2)")
+                        .HasColumnName("amount");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("date")
+                        .HasColumnName("date");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasColumnName("description");
+
+                    b.Property<int>("IdCostumer")
+                        .HasColumnType("int")
+                        .HasColumnName("id_costumer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdCostumer");
+
+                    b.ToTable("collectioncc", (string)null);
+                });
+
+            modelBuilder.Entity("printSmart.Models.Costumer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Address")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasColumnName("address");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasColumnName("email");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasColumnName("name");
+
+                    b.Property<string>("Nit")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasColumnName("nit");
+
+                    b.Property<string>("Phone")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasColumnName("phone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("costumer", (string)null);
                 });
 
             modelBuilder.Entity("printSmart.Models.Empleado", b =>
@@ -82,6 +176,108 @@ namespace printSmart.Migrations
                     b.ToTable("Empleado");
                 });
 
+            modelBuilder.Entity("printSmart.Models.Maquina", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("Existencia")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MarcaId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Modelo")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<decimal>("PrecioCompra")
+                        .HasColumnType("decimal(10,2)");
+
+                    b.Property<decimal>("PrecioVenta")
+                        .HasColumnType("decimal(10,2)");
+
+                    b.Property<string>("Serie")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MarcaId");
+
+                    b.ToTable("Maquina", (string)null);
+                });
+
+            modelBuilder.Entity("printSmart.Models.MarcaMaquina", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Marca")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MarcaMaquina", (string)null);
+                });
+
+            modelBuilder.Entity("printSmart.Models.MarcaPc", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MarcaPC", (string)null);
+                });
+
+            modelBuilder.Entity("printSmart.Models.MarcaSuministro", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Marca")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MarcaSuministro", (string)null);
+                });
+
             modelBuilder.Entity("printSmart.Models.Pago", b =>
                 {
                     b.Property<int>("IdPago")
@@ -105,26 +301,167 @@ namespace printSmart.Migrations
                     b.ToTable("Pago");
                 });
 
-            modelBuilder.Entity("printSmart.Models.Repuesto", b =>
+            modelBuilder.Entity("printSmart.Models.Paymentcc", b =>
                 {
-                    b.Property<long>("IdRepuesto")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("int")
+                        .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdRepuesto"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<bool>("Estado")
-                        .HasColumnType("bit");
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("numeric(18,2)")
+                        .HasColumnName("amount");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("date")
+                        .HasColumnName("date");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasColumnName("description");
+
+                    b.Property<int>("IdCostumer")
+                        .HasColumnType("int")
+                        .HasColumnName("id_costumer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdCostumer");
+
+                    b.ToTable("paymentcc", (string)null);
+                });
+
+            modelBuilder.Entity("printSmart.Models.Pc", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("DiscoDuro")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(30)");
+
+                    b.Property<int>("MarcaId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Nombre")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(50)");
 
-                    b.Property<float?>("Precio")
-                        .HasColumnType("real");
+                    b.Property<string>("Pantalla")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(30)");
 
-                    b.HasKey("IdRepuesto");
+                    b.Property<decimal>("PrecioCompra")
+                        .HasColumnType("decimal(10,2)");
 
-                    b.ToTable("Repuesto");
+                    b.Property<decimal>("PrecioVenta")
+                        .HasColumnType("decimal(10,2)");
+
+                    b.Property<int>("ProcesadorId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Ram")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(30)");
+
+                    b.Property<int>("SistemaOpId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MarcaId");
+
+                    b.HasIndex("ProcesadorId");
+
+                    b.HasIndex("SistemaOpId");
+
+                    b.ToTable("PC", (string)null);
+                });
+
+            modelBuilder.Entity("printSmart.Models.Procesador", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Procesador", (string)null);
+                });
+
+            modelBuilder.Entity("printSmart.Models.Reporte", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Reporte");
+                });
+
+            modelBuilder.Entity("printSmart.Models.Repuesto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Codigo")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(30)");
+
+                    b.Property<int>("Existencia")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Modelo")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(30)");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<decimal>("PrecioCompra")
+                        .HasColumnType("decimal(10,2)");
+
+                    b.Property<decimal>("PrecioVenta")
+                        .HasColumnType("decimal(10,2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Repuesto", (string)null);
                 });
 
             modelBuilder.Entity("printSmart.Models.Servicio", b =>
@@ -150,6 +487,9 @@ namespace printSmart.Migrations
                     b.Property<long?>("IdClienteNavigationIdCliente")
                         .HasColumnType("bigint");
 
+                    b.Property<int?>("IdCustomerNavigarionId")
+                        .HasColumnType("int");
+
                     b.Property<long?>("IdEmpleado")
                         .HasColumnType("bigint");
 
@@ -174,6 +514,8 @@ namespace printSmart.Migrations
 
                     b.HasIndex("IdClienteNavigationIdCliente");
 
+                    b.HasIndex("IdCustomerNavigarionId");
+
                     b.HasIndex("IdEmpleadoNavigationIdEmpleado");
 
                     b.HasIndex("IdTipoServNavigationIdTipoServ");
@@ -195,8 +537,8 @@ namespace printSmart.Migrations
                     b.Property<long?>("IdRepuesto")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("IdRepuestoNavigationIdRepuesto")
-                        .HasColumnType("bigint");
+                    b.Property<int?>("IdRepuestoNavigationId")
+                        .HasColumnType("int");
 
                     b.Property<long?>("IdServicio")
                         .HasColumnType("bigint");
@@ -206,7 +548,7 @@ namespace printSmart.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdRepuestoNavigationIdRepuesto");
+                    b.HasIndex("IdRepuestoNavigationId");
 
                     b.HasIndex("IdServicioNavigarionId");
 
@@ -233,38 +575,79 @@ namespace printSmart.Migrations
                     b.Property<long?>("IdSuministro")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("IdSuministroNavigationIdSuministro")
-                        .HasColumnType("bigint");
+                    b.Property<int?>("IdSuministroNavigationId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("IdServicioNavigarionId");
 
-                    b.HasIndex("IdSuministroNavigationIdSuministro");
+                    b.HasIndex("IdSuministroNavigationId");
 
                     b.ToTable("ServicioSuministro");
                 });
 
-            modelBuilder.Entity("printSmart.Models.Suministros", b =>
+            modelBuilder.Entity("printSmart.Models.SistemaOperativo", b =>
                 {
-                    b.Property<long>("IdSuministro")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("IdSuministro"), 1L, 1);
-
-                    b.Property<bool>("Estado")
-                        .HasColumnType("bit");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Nombre")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(50)");
 
-                    b.Property<float?>("Precio")
-                        .HasColumnType("real");
+                    b.HasKey("Id");
 
-                    b.HasKey("IdSuministro");
+                    b.ToTable("SistemaOperativo", (string)null);
+                });
 
-                    b.ToTable("Suministros");
+            modelBuilder.Entity("printSmart.Models.Suministro", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("Existencia")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdMarca")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdTipo")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Modelo")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<decimal>("PrecioCompra")
+                        .HasColumnType("decimal(10,2)");
+
+                    b.Property<decimal>("PrecioVenta")
+                        .HasColumnType("decimal(10,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdMarca");
+
+                    b.HasIndex("IdTipo");
+
+                    b.ToTable("Suministro", (string)null);
                 });
 
             modelBuilder.Entity("printSmart.Models.TipoServicio", b =>
@@ -296,11 +679,94 @@ namespace printSmart.Migrations
                     b.ToTable("TipoServicio");
                 });
 
+            modelBuilder.Entity("printSmart.Models.TipoSuministro", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("NombreTipo")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TipoSuministro", (string)null);
+                });
+
+            modelBuilder.Entity("printSmart.Models.Collectioncc", b =>
+                {
+                    b.HasOne("printSmart.Models.Costumer", "IdCostumerNavigation")
+                        .WithMany("Collectionccs")
+                        .HasForeignKey("IdCostumer")
+                        .IsRequired()
+                        .HasConstraintName("FK_collectioncc_costumer");
+
+                    b.Navigation("IdCostumerNavigation");
+                });
+
+            modelBuilder.Entity("printSmart.Models.Maquina", b =>
+                {
+                    b.HasOne("printSmart.Models.MarcaMaquina", "Marca")
+                        .WithMany("Maquinas")
+                        .HasForeignKey("MarcaId")
+                        .IsRequired()
+                        .HasConstraintName("FK__Maquina__MarcaId__6E01572D");
+
+                    b.Navigation("Marca");
+                });
+
+            modelBuilder.Entity("printSmart.Models.Paymentcc", b =>
+                {
+                    b.HasOne("printSmart.Models.Costumer", "IdCostumerNavigation")
+                        .WithMany("Paymentccs")
+                        .HasForeignKey("IdCostumer")
+                        .IsRequired()
+                        .HasConstraintName("FK_paymentcc_costumer");
+
+                    b.Navigation("IdCostumerNavigation");
+                });
+
+            modelBuilder.Entity("printSmart.Models.Pc", b =>
+                {
+                    b.HasOne("printSmart.Models.MarcaPc", "Marca")
+                        .WithMany("Pcs")
+                        .HasForeignKey("MarcaId")
+                        .IsRequired()
+                        .HasConstraintName("FK__PC__Marca__160F4887");
+
+                    b.HasOne("printSmart.Models.Procesador", "Procesador")
+                        .WithMany("Pcs")
+                        .HasForeignKey("ProcesadorId")
+                        .IsRequired()
+                        .HasConstraintName("FK__PC__Procesador__0C85DE4D");
+
+                    b.HasOne("printSmart.Models.SistemaOperativo", "SistemaOp")
+                        .WithMany("Pcs")
+                        .HasForeignKey("SistemaOpId")
+                        .IsRequired()
+                        .HasConstraintName("FK__PC__SistemaOp__0A9D95DB");
+
+                    b.Navigation("Marca");
+
+                    b.Navigation("Procesador");
+
+                    b.Navigation("SistemaOp");
+                });
+
             modelBuilder.Entity("printSmart.Models.Servicio", b =>
                 {
                     b.HasOne("printSmart.Models.Cliente", "IdClienteNavigation")
                         .WithMany("Servicio")
                         .HasForeignKey("IdClienteNavigationIdCliente");
+
+                    b.HasOne("printSmart.Models.Costumer", "IdCustomerNavigarion")
+                        .WithMany("Servicio")
+                        .HasForeignKey("IdCustomerNavigarionId");
 
                     b.HasOne("printSmart.Models.Empleado", "IdEmpleadoNavigation")
                         .WithMany("Servicio")
@@ -312,6 +778,8 @@ namespace printSmart.Migrations
 
                     b.Navigation("IdClienteNavigation");
 
+                    b.Navigation("IdCustomerNavigarion");
+
                     b.Navigation("IdEmpleadoNavigation");
 
                     b.Navigation("IdTipoServNavigation");
@@ -321,7 +789,7 @@ namespace printSmart.Migrations
                 {
                     b.HasOne("printSmart.Models.Repuesto", "IdRepuestoNavigation")
                         .WithMany("ServicioRepuesto")
-                        .HasForeignKey("IdRepuestoNavigationIdRepuesto");
+                        .HasForeignKey("IdRepuestoNavigationId");
 
                     b.HasOne("printSmart.Models.Servicio", "IdServicioNavigarion")
                         .WithMany("ServicioRepuesto")
@@ -338,13 +806,32 @@ namespace printSmart.Migrations
                         .WithMany("ServicioSuministro")
                         .HasForeignKey("IdServicioNavigarionId");
 
-                    b.HasOne("printSmart.Models.Suministros", "IdSuministroNavigation")
+                    b.HasOne("printSmart.Models.Suministro", "IdSuministroNavigation")
                         .WithMany("ServicioSuministro")
-                        .HasForeignKey("IdSuministroNavigationIdSuministro");
+                        .HasForeignKey("IdSuministroNavigationId");
 
                     b.Navigation("IdServicioNavigarion");
 
                     b.Navigation("IdSuministroNavigation");
+                });
+
+            modelBuilder.Entity("printSmart.Models.Suministro", b =>
+                {
+                    b.HasOne("printSmart.Models.MarcaSuministro", "IdMarcaNavigation")
+                        .WithMany("Suministros")
+                        .HasForeignKey("IdMarca")
+                        .IsRequired()
+                        .HasConstraintName("FK__Suministr__IdMar__440B1D61");
+
+                    b.HasOne("printSmart.Models.TipoSuministro", "IdTipoNavigation")
+                        .WithMany("Suministros")
+                        .HasForeignKey("IdTipo")
+                        .IsRequired()
+                        .HasConstraintName("FK__Suministr__IdTip__44FF419A");
+
+                    b.Navigation("IdMarcaNavigation");
+
+                    b.Navigation("IdTipoNavigation");
                 });
 
             modelBuilder.Entity("printSmart.Models.Cliente", b =>
@@ -352,9 +839,38 @@ namespace printSmart.Migrations
                     b.Navigation("Servicio");
                 });
 
+            modelBuilder.Entity("printSmart.Models.Costumer", b =>
+                {
+                    b.Navigation("Collectionccs");
+
+                    b.Navigation("Paymentccs");
+
+                    b.Navigation("Servicio");
+                });
+
             modelBuilder.Entity("printSmart.Models.Empleado", b =>
                 {
                     b.Navigation("Servicio");
+                });
+
+            modelBuilder.Entity("printSmart.Models.MarcaMaquina", b =>
+                {
+                    b.Navigation("Maquinas");
+                });
+
+            modelBuilder.Entity("printSmart.Models.MarcaPc", b =>
+                {
+                    b.Navigation("Pcs");
+                });
+
+            modelBuilder.Entity("printSmart.Models.MarcaSuministro", b =>
+                {
+                    b.Navigation("Suministros");
+                });
+
+            modelBuilder.Entity("printSmart.Models.Procesador", b =>
+                {
+                    b.Navigation("Pcs");
                 });
 
             modelBuilder.Entity("printSmart.Models.Repuesto", b =>
@@ -369,7 +885,12 @@ namespace printSmart.Migrations
                     b.Navigation("ServicioSuministro");
                 });
 
-            modelBuilder.Entity("printSmart.Models.Suministros", b =>
+            modelBuilder.Entity("printSmart.Models.SistemaOperativo", b =>
+                {
+                    b.Navigation("Pcs");
+                });
+
+            modelBuilder.Entity("printSmart.Models.Suministro", b =>
                 {
                     b.Navigation("ServicioSuministro");
                 });
@@ -377,6 +898,11 @@ namespace printSmart.Migrations
             modelBuilder.Entity("printSmart.Models.TipoServicio", b =>
                 {
                     b.Navigation("Servicio");
+                });
+
+            modelBuilder.Entity("printSmart.Models.TipoSuministro", b =>
+                {
+                    b.Navigation("Suministros");
                 });
 #pragma warning restore 612, 618
         }

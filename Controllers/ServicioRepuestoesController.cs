@@ -27,8 +27,8 @@ namespace printSmart.Controllers
                 var datos = await (from sr in db.ServicioRepuesto
                                    join s in db.Servicio
                                    on sr.IdServicio equals s.Id
-                                   join r in db.Repuesto
-                                   on sr.IdRepuesto equals r.IdRepuesto
+                                   join r in db.Repuestos
+                                   on sr.IdRepuesto equals r.Id
                                    orderby sr.Id descending
                                    select new ServicioRepuestoDetalle
                                    {
@@ -66,7 +66,7 @@ namespace printSmart.Controllers
         // GET: ServicioRepuestoes/Create
         public IActionResult Create()
         {
-            ViewData["IdRepuesto"] = new SelectList(_context.Repuesto, "IdRepuesto", "Nombre");
+            ViewData["IdRepuesto"] = new SelectList(_context.Repuestos, "Id", "Nombre");
             ViewData["IdServicio"] = new SelectList(_context.Servicio.Where(s=>s.Estado==true), "Id", "Nombre");
             return View();
         }
@@ -101,7 +101,7 @@ namespace printSmart.Controllers
                 return NotFound();
             }
             ViewData["IdServicio"] = new SelectList(_context.Servicio, "Id", "Nombre");
-            ViewData["IdRepuesto"] = new SelectList(_context.Repuesto, "IdRepuesto", "Nombre");
+            ViewData["IdRepuesto"] = new SelectList(_context.Repuestos, "Id", "Nombre");
             return View(servicioRepuesto);
         }
 

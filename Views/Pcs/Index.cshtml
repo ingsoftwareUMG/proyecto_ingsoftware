@@ -1,0 +1,190 @@
+﻿@model IEnumerable<printSmart.Models.Pc>
+
+@{
+    ViewData["Title"] = "Pc";
+}
+
+<!-- Area de trabajo -->
+<div id="">
+    <main>
+        <div class="container-fluid px-4">
+            <h2 class="mt-4">Computadoras</h2>
+            <hr />
+
+            <p>
+                <a asp-action="Create" class="btn btn-dark btn-sm text-capitalize">Agregar Pc</a>
+                <a asp-action="Index" asp-controller="SistemaOperativoes" class="btn btn-dark btn-sm text-capitalize">Agregar S.Operativo</a>
+                <a asp-action="Index" asp-controller="MarcaPcs" class="btn btn-dark btn-sm text-capitalize">Agregar Marca</a>
+                <a asp-action="Index" asp-controller="Procesadors" class="btn btn-dark btn-sm text-capitalize">Agregar Procesador</a>
+            </p>
+
+                       
+            <!-- TABLA-->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-table me-1"></i>
+                    Registros Pcs
+                </div>
+                <div class="card-body">
+                    <table id="datatablesSimple">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Nombre)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Ram)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.DiscoDuro)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Pantalla)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.PrecioVenta)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.PrecioCompra)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Marca)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Procesador)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.SistemaOp)
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var item in Model) {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Nombre)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Ram)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DiscoDuro)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Pantalla)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PrecioVenta)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PrecioCompra)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Marca.Nombre)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Procesador.Nombre)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.SistemaOp.Nombre)
+                                    </td>    
+                                    <td>
+                                        <a asp-action="Edit"  asp-route-id="@item.Id" class="btn btn-warning btn-sm"><i class="fa-solid fa-pen"></i></a>
+                                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-dark btn-sm">⚙️</a>
+                                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+
+
+
+
+
+@*
+<h1>Index</h1>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ram)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DiscoDuro)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pantalla)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PrecioVenta)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PrecioCompra)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Marca)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Procesador)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SistemaOp)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ram)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DiscoDuro)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pantalla)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PrecioVenta)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PrecioCompra)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Marca.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Procesador.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SistemaOp.Nombre)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+*@

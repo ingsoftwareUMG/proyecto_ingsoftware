@@ -1,0 +1,63 @@
+﻿@model printSmart.Models.Costumer
+
+@{
+    ViewData["Title"] = "Borrar";
+}
+
+<div id="">
+    <main>
+        <div class="container-fluid px-4">
+            <h2 class="mt-4">Eliminar Cliente</h2>
+            <h6>¿Estás segura de que quieres eliminar esto?</h6>
+            <hr />
+                       
+            <!-- Detalles-->
+            <div class="card mb-4">
+                <div class="card-body">
+                   
+                    <dl class="row">
+                        <dt class = "col-sm-2">
+                            @Html.DisplayNameFor(model => model.Nit)
+                        </dt>
+                        <dd class = "col-sm-10">
+                            @Html.DisplayFor(model => model.Nit)
+                        </dd>
+                        <dt class = "col-sm-2">
+                            @Html.DisplayNameFor(model => model.Name)
+                        </dt>
+                        <dd class = "col-sm-10">
+                            @Html.DisplayFor(model => model.Name)
+                        </dd>
+                        <dt class = "col-sm-2">
+                            @Html.DisplayNameFor(model => model.Address)
+                        </dt>
+                        <dd class = "col-sm-10">
+                            @Html.DisplayFor(model => model.Address)
+                        </dd>
+                        <dt class = "col-sm-2">
+                            @Html.DisplayNameFor(model => model.Phone)
+                        </dt>
+                        <dd class = "col-sm-10">
+                            @Html.DisplayFor(model => model.Phone)
+                        </dd>
+                        <dt class = "col-sm-2">
+                            @Html.DisplayNameFor(model => model.Email)
+                        </dt>
+                        <dd class = "col-sm-10">
+                            @Html.DisplayFor(model => model.Email)
+                        </dd>
+                    </dl>
+                    
+    
+                    <form asp-action="Delete">
+                        <input type="hidden" asp-for="Id" />
+                        <input type="submit" value="Borrar" class="btn btn-danger btn-sm text-capitalize"/>
+                        <a asp-action="Index" class="btn btn-secondary btn-sm text-capitalize">Regresar</a>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </main>
+    
+</div>

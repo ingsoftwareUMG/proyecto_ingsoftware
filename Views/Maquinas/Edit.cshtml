@@ -1,0 +1,145 @@
+﻿@model printSmart.Models.Maquina
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+@{
+    ViewData["Title"] = "EditMaquinas";
+}
+
+<div id="">
+    <main>
+        <div class="container-fluid px-4">
+            <h2 class="mt-4">Editar Máquina</h2>
+            <hr />
+                       
+            <!-- FORMULARIO-->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <form asp-action="Edit">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="Id" />
+
+                        <div>
+                            <div class="form-group">
+                                <label asp-for="Nombre" class="control-label"></label>
+                                <input asp-for="Nombre" class="form-control" />
+                                <span asp-validation-for="Nombre" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label asp-for="MarcaId" class="control-label"></label>
+                                <select asp-for="MarcaId" class="form-control" asp-items="ViewBag.MarcaId"></select>
+                                <span asp-validation-for="MarcaId" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label asp-for="Modelo" class="control-label"></label>
+                                <input asp-for="Modelo" class="form-control" />
+                                <span asp-validation-for="Modelo" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label asp-for="Serie" class="control-label"></label>
+                                <input asp-for="Serie" class="form-control" />
+                                <span asp-validation-for="Serie" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label asp-for="Existencia" class="control-label"></label>
+                                <input asp-for="Existencia" class="form-control" />
+                                <span asp-validation-for="Existencia" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label asp-for="PrecioCompra" class="control-label"></label>
+                                <input asp-for="PrecioCompra" class="form-control" />
+                                <span asp-validation-for="PrecioCompra" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label asp-for="PrecioVenta" class="control-label"></label>
+                                <input asp-for="PrecioVenta" class="form-control" />
+                                <span asp-validation-for="PrecioVenta" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+
+                            <input type="submit" value="Guardar" class="btn btn-primary btn-sm text-capitalize"/>
+                            <a asp-action="Index" class="btn btn-secondary btn-sm text-capitalize">Regresar</a>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+
+
+
+
+
+@*<h1>Edit</h1>
+<h4>Maquina</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Nombre" class="control-label"></label>
+                <input asp-for="Nombre" class="form-control" />
+                <span asp-validation-for="Nombre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MarcaId" class="control-label"></label>
+                <select asp-for="MarcaId" class="form-control" asp-items="ViewBag.MarcaId"></select>
+                <span asp-validation-for="MarcaId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Modelo" class="control-label"></label>
+                <input asp-for="Modelo" class="form-control" />
+                <span asp-validation-for="Modelo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Serie" class="control-label"></label>
+                <input asp-for="Serie" class="form-control" />
+                <span asp-validation-for="Serie" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Existencia" class="control-label"></label>
+                <input asp-for="Existencia" class="form-control" />
+                <span asp-validation-for="Existencia" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PrecioCompra" class="control-label"></label>
+                <input asp-for="PrecioCompra" class="form-control" />
+                <span asp-validation-for="PrecioCompra" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PrecioVenta" class="control-label"></label>
+                <input asp-for="PrecioVenta" class="form-control" />
+                <span asp-validation-for="PrecioVenta" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>*@

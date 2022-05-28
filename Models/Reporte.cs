@@ -15,6 +15,9 @@ namespace printSmart.Models
         public DateTime? Fecha;
         public float? Monto;
         public bool? Estado;
+        public DateTime? Ini;
+        public DateTime? Fin;
+        
     }
 
     public class ReporteCliente

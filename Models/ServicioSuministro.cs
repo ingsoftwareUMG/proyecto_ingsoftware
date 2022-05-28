@@ -16,7 +16,7 @@ namespace printSmart.Models
         public bool Estado { get; set; }
 
         public virtual Servicio? IdServicioNavigarion { get; set; }
-        public virtual Suministros? IdSuministroNavigation { get; set; }
+        public virtual Suministro? IdSuministroNavigation { get; set; }
     }
 }
 

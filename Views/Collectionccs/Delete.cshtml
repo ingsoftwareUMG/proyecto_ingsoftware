@@ -1,0 +1,58 @@
+﻿@model printSmart.Models.Collectioncc
+
+@{
+    ViewData["Title"] = "Delete";
+}
+<div id="">
+    <main>
+        <div class="container-fluid px-4">
+            <h2 class="mt-4">Eliminar Registro</h2>
+            <h6>¿Estás segura de que quieres eliminar esto?</h6>
+            <hr />
+                       
+            <!-- Detalles-->
+            <div class="card mb-4">
+                <div class="card-body">
+                   
+                   <dl class="row">
+                        <dt class = "col-sm-2">
+                            @Html.DisplayNameFor(model => model.Date)
+                        </dt>
+                        <dd class = "col-sm-10">
+                            @Html.DisplayFor(model => model.Date)
+                        </dd>
+                        <dt class = "col-sm-2">
+                            @Html.DisplayNameFor(model => model.Amount)
+                        </dt>
+                        <dd class = "col-sm-10">
+                            @Html.DisplayFor(model => model.Amount)
+                        </dd>
+                        <dt class = "col-sm-2">
+                            @Html.DisplayNameFor(model => model.Description)
+                        </dt>
+                        <dd class = "col-sm-10">
+                            @Html.DisplayFor(model => model.Description)
+                        </dd>
+                        <dt class = "col-sm-2">
+                            @Html.DisplayNameFor(model => model.IdCostumerNavigation)
+                        </dt>
+                        <dd class = "col-sm-10">
+                            @Html.DisplayFor(model => model.IdCostumerNavigation.Name)
+                        </dd>
+                    </dl>
+                    
+    
+                    <form asp-action="Delete">
+                        <input type="hidden" asp-for="Id" />
+                        <input type="submit" value="Borrar" class="btn btn-danger btn-sm text-capitalize"/>
+                        <a asp-action="Index" class="btn btn-secondary btn-sm text-capitalize">Regresar</a>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </main>
+    
+</div>
+
+

@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using printSmart.Models;
 using printSmart.data;
+using printSmart.Models;
 
 namespace printSmart.Controllers
 {
@@ -22,21 +22,21 @@ namespace printSmart.Controllers
         // GET: Repuestoes
         public async Task<IActionResult> Index()
         {
-              return _context.Repuesto != null ? 
-                          View(await _context.Repuesto.ToListAsync()) :
-                          Problem("Entity set 'AplicationDbContext.Repuesto'  is null.");
+              return _context.Repuestos != null ? 
+                          View(await _context.Repuestos.ToListAsync()) :
+                          Problem("Entity set 'printSmartContext.Repuestos'  is null.");
         }
 
         // GET: Repuestoes/Details/5
-        public async Task<IActionResult> Details(long? id)
+        public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Repuesto == null)
+            if (id == null || _context.Repuestos == null)
             {
                 return NotFound();
             }
 
-            var repuesto = await _context.Repuesto
-                .FirstOrDefaultAsync(m => m.IdRepuesto == id);
+            var repuesto = await _context.Repuestos
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (repuesto == null)
             {
                 return NotFound();
@@ -56,7 +56,7 @@ namespace printSmart.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdRepuesto,Nombre,Precio,Estado")] Repuesto repuesto)
+        public async Task<IActionResult> Create([Bind("Id,Nombre,Codigo,Modelo,Existencia,PrecioVenta,PrecioCompra")] Repuesto repuesto)
         {
             if (ModelState.IsValid)
             {
@@ -68,14 +68,14 @@ namespace printSmart.Controllers
         }
 
         // GET: Repuestoes/Edit/5
-        public async Task<IActionResult> Edit(long? id)
+        public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Repuesto == null)
+            if (id == null || _context.Repuestos == null)
             {
                 return NotFound();
             }
 
-            var repuesto = await _context.Repuesto.FindAsync(id);
+            var repuesto = await _context.Repuestos.FindAsync(id);
             if (repuesto == null)
             {
                 return NotFound();
@@ -88,9 +88,9 @@ namespace printSmart.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("IdRepuesto,Nombre,Precio,Estado")] Repuesto repuesto)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Codigo,Modelo,Existencia,PrecioVenta,PrecioCompra")] Repuesto repuesto)
         {
-            if (id != repuesto.IdRepuesto)
+            if (id != repuesto.Id)
             {
                 return NotFound();
             }
@@ -104,7 +104,7 @@ namespace printSmart.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!RepuestoExists(repuesto.IdRepuesto))
+                    if (!RepuestoExists(repuesto.Id))
                     {
                         return NotFound();
                     }
@@ -119,15 +119,15 @@ namespace printSmart.Controllers
         }
 
         // GET: Repuestoes/Delete/5
-        public async Task<IActionResult> Delete(long? id)
+        public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Repuesto == null)
+            if (id == null || _context.Repuestos == null)
             {
                 return NotFound();
             }
 
-            var repuesto = await _context.Repuesto
-                .FirstOrDefaultAsync(m => m.IdRepuesto == id);
+            var repuesto = await _context.Repuestos
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (repuesto == null)
             {
                 return NotFound();
@@ -139,25 +139,25 @@ namespace printSmart.Controllers
         // POST: Repuestoes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(long id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Repuesto == null)
+            if (_context.Repuestos == null)
             {
-                return Problem("Entity set 'AplicationDbContext.Repuesto'  is null.");
+                return Problem("Entity set 'printSmartContext.Repuestos'  is null.");
             }
-            var repuesto = await _context.Repuesto.FindAsync(id);
+            var repuesto = await _context.Repuestos.FindAsync(id);
             if (repuesto != null)
             {
-                _context.Repuesto.Remove(repuesto);
+                _context.Repuestos.Remove(repuesto);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool RepuestoExists(long id)
+        private bool RepuestoExists(int id)
         {
-          return (_context.Repuesto?.Any(e => e.IdRepuesto == id)).GetValueOrDefault();
+          return (_context.Repuestos?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

@@ -28,7 +28,7 @@ namespace printSmart.Controllers
                                    join s in db.Servicio
                                    on ss.IdServicio equals s.Id
                                    join sm in db.Suministros
-                                   on ss.IdSuministro equals sm.IdSuministro
+                                   on ss.IdSuministro equals sm.Id
                                    orderby ss.Id descending
                                    select new ServicioSuministroDetalle
                                    {
@@ -66,8 +66,8 @@ namespace printSmart.Controllers
         public IActionResult Create()
         {
 
-            ViewData["IdSuministro"] = new SelectList(_context.Suministros, "IdSuministro", "Nombre");
-            ViewData["IdServicio"] = new SelectList(_context.Servicio.Where(s=>s.Estado==true), "Id", "Nombre","");
+            ViewData["IdSuministro"] = new SelectList(_context.Suministros, "Id", "Nombre");
+            ViewData["IdServicio"] = new SelectList(_context.Servicio.Where(s=>s.Estado==true), "Id", "Nombre");
             return View();
         }
 

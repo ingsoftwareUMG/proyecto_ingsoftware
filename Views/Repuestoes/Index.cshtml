@@ -1,12 +1,92 @@
 ﻿@model IEnumerable<printSmart.Models.Repuesto>
 
 @{
-    ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Repuestos";
 }
 
-<h1>Index</h1>
+<!-- Area de trabajo -->
+<div id="">
+    <main>
+        <div class="container-fluid px-4">
+            <h2 class="mt-4">Repuestos</h2>
+            <hr />
 
+            <p>
+                <a asp-action="Create" class="btn btn-dark btn-sm text-capitalize">Agregar Repuesto</a>
+            </p>
+                       
+            <!-- TABLA-->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-table me-1"></i>
+                    Registros repuestos
+                </div>
+                <div class="card-body">
+                    <table id="datatablesSimple">
+                        <thead>
+                             <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Nombre)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Codigo)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Modelo)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Existencia)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.PrecioVenta)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.PrecioCompra)
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var item in Model) {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Nombre)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Codigo)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Modelo)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Existencia)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PrecioVenta)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PrecioCompra)
+                                    </td>
+
+                                    <td>
+                                        <a asp-action="Edit"  asp-route-id="@item.Id" class="btn btn-warning btn-sm"><i class="fa-solid fa-pen"></i></a>
+                                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-dark btn-sm">⚙️</a>
+                                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+
+@*
+
+<h1>Index</h1>
 <p>
     <a asp-action="Create">Create New</a>
 </p>
@@ -17,10 +97,19 @@
                 @Html.DisplayNameFor(model => model.Nombre)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Precio)
+                @Html.DisplayNameFor(model => model.Codigo)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Estado)
+                @Html.DisplayNameFor(model => model.Modelo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Existencia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PrecioVenta)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PrecioCompra)
             </th>
             <th></th>
         </tr>
@@ -32,17 +121,27 @@
                 @Html.DisplayFor(modelItem => item.Nombre)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Precio)
+                @Html.DisplayFor(modelItem => item.Codigo)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Estado)
+                @Html.DisplayFor(modelItem => item.Modelo)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.IdRepuesto">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.IdRepuesto">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdRepuesto">Delete</a>
+                @Html.DisplayFor(modelItem => item.Existencia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PrecioVenta)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PrecioCompra)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
 }
     </tbody>
 </table>
+*@

@@ -1,12 +1,81 @@
 ﻿@model printSmart.Models.Repuesto
 
 @{
-    ViewData["Title"] = "Create";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "NewRespuesto";
 }
 
-<h1>Create</h1>
+<div id="">
+    <main>
+        <div class="container-fluid px-4">
+            <h2 class="mt-4">Nuevo Repuesto</h2>
+            <hr />
+                       
+            <!-- FORMULARIO-->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                         
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label asp-for="Nombre" class="control-label"></label>
+                                <input asp-for="Nombre" class="form-control" />
+                                <span asp-validation-for="Nombre" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label asp-for="Codigo" class="control-label"></label>
+                                <input asp-for="Codigo" class="form-control" />
+                                <span asp-validation-for="Codigo" class="text-danger"></span>
+                            </div>
+                        </div>
 
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label asp-for="Modelo" class="control-label"></label>
+                                <input asp-for="Modelo" class="form-control" />
+                                <span asp-validation-for="Modelo" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label asp-for="Existencia" class="control-label"></label>
+                                <input asp-for="Existencia" class="form-control" />
+                                <span asp-validation-for="Existencia" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label asp-for="PrecioVenta" class="control-label"></label>
+                                <input asp-for="PrecioVenta" class="form-control" />
+                                <span asp-validation-for="PrecioVenta" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label asp-for="PrecioCompra"class="control-label"></label>
+                                <input asp-for="PrecioCompra" class="form-control" />
+                                <span asp-validation-for="PrecioCompra" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="submit" value="Guardar" class="btn btn-primary btn-sm text-capitalize" />
+                            <a asp-action="Index" class="btn btn-secondary btn-sm text-capitalize">Regresar</a>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+
+
+
+@*
+<h1>Create</h1>
 <h4>Repuesto</h4>
 <hr />
 <div class="row">
@@ -19,14 +88,29 @@
                 <span asp-validation-for="Nombre" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Precio" class="control-label"></label>
-                <input asp-for="Precio" class="form-control" />
-                <span asp-validation-for="Precio" class="text-danger"></span>
+                <label asp-for="Codigo" class="control-label"></label>
+                <input asp-for="Codigo" class="form-control" />
+                <span asp-validation-for="Codigo" class="text-danger"></span>
             </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Estado" /> @Html.DisplayNameFor(model => model.Estado)
-                </label>
+            <div class="form-group">
+                <label asp-for="Modelo" class="control-label"></label>
+                <input asp-for="Modelo" class="form-control" />
+                <span asp-validation-for="Modelo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Existencia" class="control-label"></label>
+                <input asp-for="Existencia" class="form-control" />
+                <span asp-validation-for="Existencia" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PrecioVenta" class="control-label"></label>
+                <input asp-for="PrecioVenta" class="form-control" />
+                <span asp-validation-for="PrecioVenta" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PrecioCompra" class="control-label"></label>
+                <input asp-for="PrecioCompra" class="form-control" />
+                <span asp-validation-for="PrecioCompra" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
@@ -39,3 +123,4 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
+*@

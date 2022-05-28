@@ -26,16 +26,14 @@ namespace printSmart.Controllers
             {
                 int limiteDatos = 10;
                 var pagos = await (from p in db.Pago
-                                   join s in db.Servicio
-                                   on p.IdServicio equals s.Id
-                                   join c in db.Cliente
-                                   on s.IdCliente equals c.IdCliente
+                                   join s in db.Servicio on p.IdServicio equals s.Id
+                                   join c in db.Costumers on s.IdCliente equals c.Id
                                    orderby p.IdPago descending
                                    select new PagoDetalle
                                    {
                                        IdPago = p.IdPago,
                                        Servicio = s.Nombre,
-                                       Cliente = c.Nombre + c.Apellido,
+                                       Cliente = c.Name,
                                        Importe = p.Valor,
                                        IdServicio=s.Id,
 
@@ -55,22 +53,22 @@ namespace printSmart.Controllers
                 float valorRepuestos = 0;
                 var suministros = await (from ss in db.ServicioSuministro
                                          join sm in db.Suministros
-                                         on ss.IdSuministro equals sm.IdSuministro
+                                         on ss.IdSuministro equals sm.Id
                                          where ss.IdServicio == id
-                                         select new Suministros
+                                         select new Suministrod
                                          {
                                              Nombre = sm.Nombre,
-                                             Precio = sm.Precio,
+                                             Precio = sm.PrecioVenta,
                                          }).ToListAsync();
 
                 var repuestos = await (from sr in db.ServicioRepuesto
-                                       join r in db.Repuesto
-                                       on sr.IdRepuesto equals r.IdRepuesto
+                                       join r in db.Repuestos
+                                       on sr.IdRepuesto equals r.Id
                                        where sr.IdServicio == id
-                                       select new Repuesto
+                                       select new Repuestod
                                        {
                                            Nombre = r.Nombre,
-                                           Precio = r.Precio,
+                                           Precio = (float)r.PrecioVenta,
                                        }).ToListAsync();
 
 
@@ -95,7 +93,7 @@ namespace printSmart.Controllers
                 var data = await (from s in db.Servicio
                                   join t in db.TipoServicio
                                   on s.IdTipoServ equals t.IdTipoServ
-                                  join c in db.Cliente on s.IdCliente equals c.IdCliente
+                                  join c in db.Costumers on s.IdCliente equals c.Id
                                   where s.Id == id
                                   select new DetallesServicio
                                   {
@@ -103,7 +101,7 @@ namespace printSmart.Controllers
                                       Nombre = s.Nombre,
                                       Descripcion = s.Descripcion,
                                       Tipo = t.Nombre,
-                                      Cliente = c.Nombre + c.Apellido,
+                                      Cliente = c.Name,
                                       Fecha = s.Fecha,
                                       Suministros = suministros,
                                       Repuestos = repuestos,

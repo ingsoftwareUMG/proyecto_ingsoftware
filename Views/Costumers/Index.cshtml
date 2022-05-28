@@ -1,0 +1,79 @@
+﻿@model IEnumerable<printSmart.Models.Costumer>
+
+@{
+    ViewData["Title"] = "Clientes";
+}
+
+<div id="">
+    <main>
+        <div class="container-fluid px-4">
+            <h2 class="mt-4">Clientes</h2>
+            <hr />
+
+            <p>
+                <a asp-action="Create" class="btn btn-dark btn-sm text-capitalize">Agregar Cliente</a>
+            </p>
+
+                       
+            <!-- TABLA-->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-table me-1"></i>
+                    Registros Clientes
+                </div>
+                <div class="card-body">
+                    <table id="datatablesSimple">
+                       <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Nit)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Name)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Address)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Phone)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Email)
+                                </th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var item in Model) {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Nit)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Address)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Phone)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Email)
+                                    </td>
+                                    <td>
+               
+                                    <a asp-action="Edit"  asp-route-id="@item.Id" class="btn btn-warning btn-sm"><i class="fa-solid fa-pen"></i></a>
+                                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-dark btn-sm">⚙️</a>
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></a>
+                                </td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>

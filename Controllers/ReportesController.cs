@@ -21,29 +21,70 @@ namespace printSmart.Controllers
         }
 
         // GET: Reportes
-        public IActionResult Index()
+        public async Task<IActionResult> Index(DateTime ini, DateTime fin)
         {
+            string fechaReco = "01/01/0001 0:00:00";
+            DateTime fechaR = new DateTime();
+            fechaR = DateTime.Parse(fechaReco);
+            Console.WriteLine(ini);
+            Console.WriteLine(fin);
+            if (ini.Date == fechaR.Date)
+            {
+                Console.WriteLine("No hay datos");
+                return View();
+            }
+            else
+            {
+                
+                using (var db = _context)
+                {
+
+                    var data = await (from s in db.Servicio
+                                      join t in db.TipoServicio on s.IdTipoServ equals t.IdTipoServ
+                                      join c in db.Costumers on s.IdCliente equals c.Id
+                                      join p in db.Pago on s.Id equals p.IdServicio
+                                      where (s.Fecha.Date >= ini.Date && s.Fecha.Date <= fin.Date)
+                                      orderby s.Fecha ascending
+                                      select new ReporteServicioss
+                                      {
+                                          Nombre = s.Nombre,
+                                          Descripcion = s.Descripcion,
+                                          Tipo = t.Nombre,
+                                          Cliente = c.Name,
+                                          Fecha = s.Fecha,
+                                          Monto = p.Valor,
+                                          Estado = s.Estado,
+                                          Ini = ini,
+                                          Fin = fin,
+                                      }).ToListAsync();
+                    return View(data);
+
+                }
+            }
+           
             
-            return View();
         }
 
         // GET: Reporte de servicios
-        public async Task<IActionResult> Rservicios()
+        public async Task<IActionResult> Rservicios(DateTime ini,DateTime fin)
         {
+            Console.WriteLine(ini);
+            Console.WriteLine(fin);
             using (var db = _context)
             {
 
                 var data = await (from s in db.Servicio
                                   join t in db.TipoServicio on s.IdTipoServ equals t.IdTipoServ
-                                  join c in db.Cliente on s.IdCliente equals c.IdCliente
+                                  join c in db.Costumers on s.IdCliente equals c.Id
                                   join p in db.Pago on s.Id equals p.IdServicio
+                                  where (s.Fecha.Date >= ini.Date && s.Fecha.Date <= fin.Date) 
                                   orderby s.Fecha ascending
                                   select new ReporteServicioss
                                   {
                                       Nombre = s.Nombre,
                                       Descripcion = s.Descripcion,
                                       Tipo = t.Nombre,
-                                      Cliente = c.Nombre + c.Apellido,
+                                      Cliente = c.Name,
                                       Fecha = s.Fecha,
                                       Monto = p.Valor,
                                       Estado = s.Estado,

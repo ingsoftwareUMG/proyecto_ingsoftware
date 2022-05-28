@@ -28,8 +28,8 @@ namespace printSmart.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")]
         public DateTime? Fecha;
         public float? Vtiposervicio;
-        public List<Suministros>?Suministros;
-        public List<Repuesto>? Repuestos;
+        public List<Suministrod>?Suministros;
+        public List<Repuestod>? Repuestos;
         public float? Vsuministros;
         public float? Vrepuestos;
         [Display(Name = "Viatico")]
@@ -79,6 +79,8 @@ namespace printSmart.Models
         public virtual TipoServicio? IdTipoServNavigation { get; set; }
         public virtual Cliente? IdClienteNavigation { get; set; }
         public virtual Empleado? IdEmpleadoNavigation { get; set; }
+        
+        public virtual Costumer? IdCustomerNavigarion { get; set; }
         
     }
 }

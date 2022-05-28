@@ -1,0 +1,86 @@
+﻿@model IEnumerable<printSmart.Models.MarcaSuministro>
+
+
+@{
+    ViewData["Title"] = "MarcaSuministro";
+}
+
+<!-- Area de trabajo -->
+<div id="">
+    <main>
+        <div class="container-fluid px-4">
+            <h2 class="mt-4">Marcas de Suministros</h2>
+            <hr />
+
+            <p>
+                <a asp-action="Create" class="btn btn-dark btn-sm text-capitalize">Agregar Marca</a>
+            </p>
+    
+            <!-- TABLA-->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-table me-1"></i>
+                    Registros de marcas
+                </div>
+                <div class="card-body">
+                    <table id="datatablesSimple">
+                       <thead>
+                            <tr>
+                                <th>
+                                     @Html.DisplayNameFor(model => model.Marca)
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var item in Model) {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Marca)
+                                    </td>
+                                    <td>
+                                        <a asp-action="Edit"  asp-route-id="@item.Id" class="btn btn-warning btn-sm"><i class="fa-solid fa-pen"></i></a>
+                                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-dark btn-sm">⚙️</a>
+                                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+
+
+@*
+<h1>Index</h1>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Marca)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Marca)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>*@

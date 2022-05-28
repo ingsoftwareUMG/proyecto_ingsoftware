@@ -1,0 +1,72 @@
+﻿@model IEnumerable<printSmart.Models.Paymentcc>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div id="">
+    <main>
+        <div class="container-fluid px-4">
+            <h2 class="mt-4">Registro de pagos</h2>
+            <hr />
+
+            <p>
+                <a asp-action="Create" class="btn btn-dark btn-sm text-capitalize">Nuevo registro de pago</a>
+            </p>
+
+                       
+            <!-- TABLA-->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-table me-1"></i>
+                    Registros de pagos por cliente
+                </div>
+                <div class="card-body">
+                    <table id="datatablesSimple">
+                       <thead>
+                           <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Date)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Amount)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Description)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.IdCostumerNavigation)
+                                </th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var item in Model) {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Date)
+                                    </td>
+                                    <td>Q.
+                                        @Html.DisplayFor(modelItem => item.Amount)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Description)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.IdCostumerNavigation.Name)
+                                    </td>
+                                    <td>
+                                        <a asp-action="Edit"  asp-route-id="@item.Id" class="btn btn-warning btn-sm"><i class="fa-solid fa-pen"></i></a>
+                                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-dark btn-sm">⚙️</a>
+                                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></a>
+                                    </td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>

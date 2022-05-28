@@ -12,18 +12,54 @@
     <img src="~/assets/img/logo.jpeg"/>
     <br />
 </div>
-<div class="row justify-content-center">
-    <div>
-    <a class="btn btn-primary" asp-area="" asp-controller="Servicios" asp-action="Index">Modulo Servicios</a>
+<div class="row mt-4">
+    <div class="col-xl-3 col-md-6">
+        <div class="card bg-primary text-white mb-4">
+            <div class="card-body text-center"><i class="fa glyphicon-th-large"></i>Modulos Servicios</div>
+            <a class="text-white" asp-area="" asp-controller="Servicios" asp-action="Index">
+            <div class="card-footer d-flex align-items-center justify-content-center">
+                <div class="small align-items-center justify-content-center">
+                    <div class="small text-center"> <i class="fas fa-chevron-down"></i></div>
+                </div>
+            </div>
+            </a>
+        </div>
     </div>
-    <div>
-    <a class="btn btn-primary" asp-area="" asp-controller="Servicios" asp-action="Index">Modulo Reportes</a>
+    <div class="col-xl-3 col-md-6">
+        <div class="card bg-warning text-white mb-4">
+             <div class="card-body text-center"><i class="fa glyphicon-th-large"></i>Modulos Reportes</div>
+            <a class="text-white" asp-area="" asp-controller="Reportes" asp-action="Index">
+            <div class="card-footer d-flex align-items-center justify-content-center">
+                <div class="small align-items-center justify-content-center">
+                    <div class="small text-center"> <i class="fas fa-chevron-down"></i></div>
+                </div>
+            </div>
+            </a>
+        </div>
     </div>
-    <div>
-    <a class="btn btn-primary" asp-area="" asp-controller="Servicios" asp-action="Index">Modulo Clientes</a> 
+    <div class="col-xl-3 col-md-6">
+        <div class="card bg-success text-white mb-4">
+             <div class="card-body text-center"><i class="fa glyphicon-th-large"></i>Modulos Inventario</div>
+            <a class="text-white" asp-area="" asp-controller="Suministroes" asp-action="Index">
+            <div class="card-footer d-flex align-items-center justify-content-center">
+                <div class="small align-items-center justify-content-center">
+                    <div class="small text-center"> <i class="fas fa-chevron-down"></i></div>
+                </div>
+            </div>
+            </a>
+        </div>
     </div>
-    <div>
-    <a class="btn btn-primary" asp-area="" asp-controller="Servicios" asp-action="Index">Servicios</a>
+    <div class="col-xl-3 col-md-6">
+        <div class="card bg-danger text-white mb-4">
+            <div class="card-body text-center"><i class="fa glyphicon-th-large"></i>Modulos Clientes</div>
+            <a class="text-white" asp-area="" asp-controller="Costumers" asp-action="Index">
+            <div class="card-footer d-flex align-items-center justify-content-center">
+                <div class="small align-items-center justify-content-center">
+                    <div class="small text-center"> <i class="fas fa-chevron-down"></i></div>
+                </div>
+            </div>
+            </a>
+        </div>
     </div>
 </div>
 </div>
